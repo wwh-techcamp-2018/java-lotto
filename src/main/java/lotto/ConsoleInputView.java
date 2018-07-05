@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class ConsoleInputView {
 
-    private static Scanner sc = new Scanner(System.in);;
+    private static Scanner sc = new Scanner(System.in);
 
     public static int getPrice() {
         System.out.println("구입금액을 입력해주세요.");

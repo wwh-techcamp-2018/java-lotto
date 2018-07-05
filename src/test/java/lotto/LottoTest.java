@@ -26,12 +26,12 @@ public class LottoTest {
     public void create_당첨로또_생성() {
         String winNumbers = "1,2,3,4,5,6";
         assertThat(lotto.createWinLotto(winNumbers).getNumbers())
-        .contains(1)
-        .contains(2)
-        .contains(3)
-        .contains(4)
-        .contains(5)
-        .contains(6);
+                .contains(1)
+                .contains(2)
+                .contains(3)
+                .contains(4)
+                .contains(5)
+                .contains(6);
     }
 
     @Test

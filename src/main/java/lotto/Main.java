@@ -18,8 +18,6 @@ public class Main {
             lottoGameResult.addMatchCount(lotto.matchBy(winnerLotto));
         }
 
-
         ConsoleOutputView.printResult(lottoGameResult, price);
-
     }
 }

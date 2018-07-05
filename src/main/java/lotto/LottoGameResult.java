@@ -7,7 +7,7 @@ public class LottoGameResult {
     public void addMatchCount(int matchCount) {
         ++matchCountArr[matchCount];
     }
-    
+
     public int getTotalReward() {
         for (int i = 3; i < matchCountArr.length; i++) {
             totalReward += Match.values()[i - 3].getPrice() * matchCountArr[i];
