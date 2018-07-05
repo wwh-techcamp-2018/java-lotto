@@ -22,15 +22,14 @@ public class LottoGameDisplay {
         System.out.println();
 
         getUsersNumbers();
-
     }
 
     public void getUsersNumbers() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
         String inputNumbers[] = scanner.nextLine().split(", ");
-        List<Integer> numbers = new ArrayList<>();
+        List<LottoNumber> numbers = new ArrayList<>();
         for (String inputNumber : inputNumbers) {
-            numbers.add(Integer.valueOf(inputNumber));
+            numbers.add(new LottoNumber(Integer.valueOf(inputNumber)));
         }
         lottoGame.setWinnerLotto(new Lotto(numbers));
     }
