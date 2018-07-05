@@ -8,23 +8,27 @@ import java.util.stream.Collectors;
 public class HitNumber {
     final List<Integer> hitNumbers;
     static final String DELIMITER = ", ";
-    public HitNumber(String inputNumber){
-        if(!isValid(inputNumber))
+
+    public HitNumber(String inputNumber) {
+        if (!isValid(inputNumber))
             throw new IllegalArgumentException();
         hitNumbers = Collections.unmodifiableList(
                 toIntList(split(inputNumber, DELIMITER)));
     }
-    public List<Integer> getNumbers(){
+
+    public List<Integer> getNumbers() {
         return hitNumbers;//Arrays.asList(new Integer[]{1,2,3,4,5,6});
     }
 
-    public static String[] split(String input, String delimiter){
+    public static String[] split(String input, String delimiter) {
         return input.split(delimiter);
     }
-    public static List<Integer> toIntList(String[] inputStr){
+
+    public static List<Integer> toIntList(String[] inputStr) {
         return Arrays.asList(inputStr).stream().map(e -> toInt(e)).collect(Collectors.toList());
 
     }
+
     public static boolean isValid(String answer) {
         String[] numbers = split(answer, DELIMITER);
         return Arrays.asList(numbers)

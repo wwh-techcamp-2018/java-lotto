@@ -1,6 +1,7 @@
 package lotto;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
 
 public class Lotto {
     private List<Integer> lottoNumbers;
@@ -9,7 +10,7 @@ public class Lotto {
         lottoNumbers = LottoGenerator.generateNum();
     }
 
-    public int compareLotto(HitNumber hitNumber){
+    public int compareLotto(HitNumber hitNumber) {
         return compareNumList(lottoNumbers, hitNumber.getNumbers());
     }
 
@@ -20,8 +21,14 @@ public class Lotto {
         }
         return hitCount;
     }
+
     private List<Integer> sortLottoNumbers(List<Integer> lottoNumbers) {
         Collections.sort(lottoNumbers);
         return lottoNumbers;
+    }
+
+    @Override
+    public String toString() {
+        return lottoNumbers.toString();
     }
 }

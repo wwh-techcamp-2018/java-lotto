@@ -4,17 +4,19 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class TestCaseTest {
-    class TestOutput{
+    class TestOutput {
         private String prop1;
         private int prop2;
 
-        TestOutput(String prop1, int prop2){
+        TestOutput(String prop1, int prop2) {
             this.prop1 = prop1;
             this.prop2 = prop2;
         }
     }
+
     List outputList;
     String[] outputArr;
     TestOutput outputBean;
@@ -25,7 +27,7 @@ public class TestCaseTest {
     String nullObj;
 
     @Before
-    public void setUp(){
+    public void setUp() {
         nullObj = null;
         outputStr = "ABC";
         outputInt = 1;
@@ -39,7 +41,7 @@ public class TestCaseTest {
     }
 
     @Test
-    public void contains(){
+    public void contains() {
         assertThat("A-B1").isIn(outputList).contains("A-B2", "A-B3");
     }
 }
