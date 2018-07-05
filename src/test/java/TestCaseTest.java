@@ -1,6 +1,7 @@
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -28,7 +29,7 @@ public class TestCaseTest {
         nullObj = null;
         outputStr = "ABC";
         outputInt = 1;
-        outputList = new List();
+        outputList = new ArrayList();
         outputList.add("A-B1");
         outputList.add("A-B2");
         outputList.add("A-B3");
@@ -39,6 +40,6 @@ public class TestCaseTest {
 
     @Test
     public void contains(){
-        assertThat("A-B1").isIn(outputList).contains("A-B2", "A-B3").contains;
+        assertThat("A-B1").isIn(outputList).contains("A-B2", "A-B3");
     }
 }

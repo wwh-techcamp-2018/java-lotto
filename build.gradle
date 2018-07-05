@@ -11,5 +11,6 @@ repositories {
 dependencies {
 	compile('ch.qos.logback:logback-classic:1.2.3')
     testCompile('junit:junit:4.12')
+    //testCompile('harcrest-all:org.hamcrest.hamcrest-all:1.3')
     testCompile('org.assertj:assertj-core:3.9.0')
 }
