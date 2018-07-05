@@ -1,36 +1,35 @@
 package lotto.domain;
 
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Lotto {
     public static final int A_LOTTO_COUNT = 6;
 
-    private List<Integer> numbers;
+    private Set <Integer> numbers;
     private LottoState state;
 
-    public Lotto(List<Integer> numbers) {
+    public Lotto(Set<Integer> numbers) {
         this.numbers = numbers;
-        if (!isVaildLottoNumbers())
+        if (!isValidLottoNumbers())
             throw new IllegalArgumentException("로또 번호가 잘못됐습니다.");
+
     }
 
-    public List<Integer> getNumbers() {
+    public Set<Integer> getNumbers() {
         return numbers;
     }
 
-    public void setLottoState(Lotto winLotto) {
+    public void matchState(Lotto winLotto) {
         int result = 0;
-        for (int number : winLotto.getNumbers()) {
-            if (numbers.contains(number))
-                result++;
-        }
+        result = winLotto.getNumbers().stream()
+                .filter(number -> numbers.contains(number))
+                .collect(Collectors.toList()).size();
         state = LottoState.valueOf(result);
     }
 
     public boolean isWinner(){
-        return state.getMatchCount() >= LottoState.FORTH.getMatchCount();
+        return state.isWinner();
     }
 
     public LottoState getLottoState() {
@@ -40,30 +39,38 @@ public class Lotto {
     public String buildLottoString() {
         StringBuilder result = new StringBuilder();
         result.append("[");
-        result.append(numbers.get(0));
-        for (int i = 1; i < numbers.size(); i++) {
-            result.append(", " + numbers.get(i));
+        for (Integer number : numbers) {
+            result.append(number + ", ");
         }
-        result.append("]");
-        return result.toString();
+        return result.substring(0, result.length() -2) + "]";
     }
 
-    boolean isVaildLottoNumbers() {
-        if (numbers == null)
+    boolean isValidLottoNumbers() {
+
+        if(!isValidSize())
             return false;
+        if(!isValidBoundary())
+            return false;
+
+        return true;
+    }
+
+    private boolean isValidSize() {
+        if (numbers == null)
+            throw new IllegalArgumentException();
 
         if (Lotto.A_LOTTO_COUNT != numbers.size())
             return false;
+        return true;
+    }
 
-        Set<Integer> overlapNumber = new HashSet<>();
+    private boolean isValidBoundary() {
         for (int number : numbers) {
             if (number < 1 || number > 45)
                 return false;
-            if (overlapNumber.contains(number))
-                return false;
-
-            overlapNumber.add(number);
         }
         return true;
     }
+
+
 }

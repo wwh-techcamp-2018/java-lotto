@@ -1,6 +1,7 @@
 package lotto.domain;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LottoGame {
     private static final int LOTTO_COST = 1000;
@@ -37,10 +38,16 @@ public class LottoGame {
     List<Lotto> getWinners(List<Lotto> lottos) {
         List<Lotto> winners = new ArrayList<>();
         for (Lotto lotto : lottos) {
-            lotto.setLottoState(winLotto);
+            lotto.matchState(winLotto);
             if (lotto.isWinner())
                 winners.add(lotto);
         }
+
+//        List<Lotto> winners = lottos.stream()
+//                .forEach(lotto -> lotto.setLottoState(winLotto))
+//                .filter(lotto -> lotto.isWinner())
+//                .collect(Collectors.toList());
+
         return winners;
     }
 

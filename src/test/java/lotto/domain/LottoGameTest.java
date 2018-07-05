@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import org.assertj.core.util.Sets;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -45,12 +46,12 @@ public class LottoGameTest {
     @Test
     public void getWinnersTest() {
         List<Lotto> testCase = new ArrayList<>(Arrays.asList(
-                new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)),
-                new Lotto(Arrays.asList(1, 2, 3, 4, 5, 7)),
-                new Lotto(Arrays.asList(1, 9, 8, 7, 11, 12))
+                new Lotto(Sets.newHashSet(Arrays.asList(1, 2, 3, 4, 5, 6))),
+                new Lotto(Sets.newHashSet(Arrays.asList(1, 2, 3, 4, 5, 7))),
+                new Lotto(Sets.newHashSet(Arrays.asList(1, 9, 8, 7, 11, 12)))
         ));
 
-        game.setWinLotto(new Lotto(Arrays.asList(1, 2, 3, 4, 5, 6)));
+        game.setWinLotto(new Lotto(Sets.newHashSet(Arrays.asList(1, 2, 3, 4, 5, 6))));
         List<Lotto> winners = game.getWinners(testCase);
         assertEquals(2, winners.size());
     }

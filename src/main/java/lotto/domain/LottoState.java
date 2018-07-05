@@ -1,5 +1,7 @@
 package lotto.domain;
 
+import java.util.Arrays;
+
 public enum LottoState {
     FIRST(6, 200000000),
     SECOND(5, 15000000),
@@ -17,16 +19,10 @@ public enum LottoState {
 
 
     public static LottoState valueOf(int matchCount) {
-        if (matchCount == 6)
-            return FIRST;
-        if (matchCount == 5)
-            return SECOND;
-        if (matchCount == 4)
-            return THIRD;
-        if (matchCount == 3)
-            return FORTH;
 
-        return FAIL;
+        return Arrays.stream(LottoState.values()).filter(lottoState -> lottoState.getMatchCount() == matchCount)
+                .findAny()
+                .orElse(FAIL);
     }
 
     public int getMatchCount() {
@@ -35,5 +31,9 @@ public enum LottoState {
 
     public int getReward() {
         return this.reward;
+    }
+
+    public boolean isWinner(){
+        return getMatchCount() >= LottoState.FORTH.getMatchCount();
     }
 }

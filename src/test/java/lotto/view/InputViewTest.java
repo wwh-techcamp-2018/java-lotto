@@ -1,5 +1,6 @@
 package lotto.view;
 
+import org.assertj.core.util.Sets;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,7 +31,7 @@ public class InputViewTest {
 
     @Test
     public void parseTest() {
-        assertThat(Arrays.asList(1, 2, 3, 4, 5, 6), is(inputView.parse(new String[]{"1", "2", "3", "4", "5", "6"})));
+        assertThat(Sets.newHashSet(Arrays.asList(1, 2, 3, 4, 5, 6)), is(inputView.parse(new String[]{"1", "2", "3", "4", "5", "6"})));
     }
 
     @Test(expected = IllegalArgumentException.class)
