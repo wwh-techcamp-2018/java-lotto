@@ -16,39 +16,45 @@ public class HitNumber {
                 toIntList(split(inputNumber, DELIMITER)));
     }
 
-    public List<Integer> getNumbers() {
-        return hitNumbers;//Arrays.asList(new Integer[]{1,2,3,4,5,6});
-    }
-
-    public static String[] split(String input, String delimiter) {
-        return input.split(delimiter);
-    }
-
-    public static List<Integer> toIntList(String[] inputStr) {
-        return Arrays.asList(inputStr).stream().map(e -> toInt(e)).collect(Collectors.toList());
-
-    }
+//    public List<Integer> getNumbers() {
+//        return hitNumbers;//Arrays.asList(new Integer[]{1,2,3,4,5,6});
+//    }
 
     public static boolean isValid(String answer) {
         String[] numbers = split(answer, DELIMITER);
         return Arrays.asList(numbers)
                 .stream()
-                .allMatch(e -> isValidLotto(e)) && numbers.length == 6;
+                .allMatch(e -> validateNumber(e)) && numbers.length == LottoGenerator.LOTTO_NUMBER_COUNT;
     }
 
-    public static boolean isValidLotto(String number) {
+    private static boolean validateNumber(String number) {
         int num = 0;
         try {
             num = toInt(number);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
-        if (num > 45 || num < 1) return false;
+        if (num > LottoGenerator.NUMBER_UPPER_BOUND || num < LottoGenerator.NUMBER_LOWER_BOUND) return false;
 
         return true;
     }
 
-    public static int toInt(String number) {
+    private static String[] split(String input, String delimiter) {
+        return input.split(delimiter);
+    }
+
+    private static List<Integer> toIntList(String[] inputStr) {
+        return Arrays.asList(inputStr).stream().map(e -> toInt(e)).collect(Collectors.toList());
+
+    }
+
+    private static int toInt(String number) {
         return Integer.parseInt(number);
+    }
+
+    public int increment(int number){
+        if(hitNumbers.contains(number))
+            return 1;
+        return 0;
     }
 }

@@ -3,13 +3,9 @@ package lotto;
 import java.util.Scanner;
 
 public class InputUI {
-    private Scanner scanner;
+    private static Scanner scanner = new Scanner(System.in);
 
-    public InputUI() {
-        scanner = new Scanner(System.in);
-    }
-
-    public int getForLottoeMoney() {
+    public static int getForLottoMoney() {
         System.out.println("구입금액을 입력해 주세요");
         try {
 //            return 10000;
@@ -19,7 +15,7 @@ public class InputUI {
         }
     }
 
-    public String getHitNumber() {
+    public static String getHitNumber() {
         System.out.println("지난 주 당첨 번호를 입력해 주세요.");
 //        return "1, 2, 3, 4, 5, 6";
         return scanner.nextLine();

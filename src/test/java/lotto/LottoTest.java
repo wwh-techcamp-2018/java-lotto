@@ -4,13 +4,14 @@ import org.assertj.core.api.SoftAssertions;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
-    List<Lotto> lottoes;
+    //List<Lotto> lottoes;
     Lotto singleLotto;
     LottoFactory lottoFactory;
 
@@ -73,18 +74,18 @@ public class LottoTest {
 
     @Test
     public void 당첨상황확인() {
-        HitNumber hitMaker = new HitNumber("1, 2, 3, 4, 5, 6");
-        List<Integer> hitNumbers = hitMaker.getNumbers();
+        HitNumber hitNumbers = new HitNumber("1, 2, 3, 4, 5, 6");
+
         SoftAssertions assertions = new SoftAssertions();
-        assertions.assertThat(Lotto.compareNumList(Arrays.asList(1, 2, 3, 11, 12, 13), hitNumbers))
+        assertions.assertThat(Lotto.getLottoByInput(Arrays.asList(1, 2, 3, 11, 12, 13)).compareLotto(hitNumbers))
                 .as("3개케이스").isEqualTo(3);
-        assertions.assertThat(Lotto.compareNumList(Arrays.asList(1, 2, 3, 4, 11, 12), hitNumbers))
+        assertions.assertThat(Lotto.getLottoByInput(Arrays.asList(1, 2, 3, 4, 12, 13)).compareLotto(hitNumbers))
                 .as("4개케이스").isEqualTo(4);
-        assertions.assertThat(Lotto.compareNumList(Arrays.asList(1, 2, 3, 4, 5, 11), hitNumbers))
+        assertions.assertThat(Lotto.getLottoByInput(Arrays.asList(1, 2, 3, 4, 5, 13)).compareLotto(hitNumbers))
                 .as("5개케이스").isEqualTo(5);
-        assertions.assertThat(Lotto.compareNumList(Arrays.asList(1, 2, 3, 4, 5, 6), hitNumbers))
+        assertions.assertThat(Lotto.getLottoByInput(Arrays.asList(1, 2, 3, 4, 5, 6)).compareLotto(hitNumbers))
                 .as("6개케이스").isEqualTo(6);
-        assertions.assertThat(Lotto.compareNumList(Arrays.asList(1, 2, 13, 14, 15, 16), hitNumbers))
+        assertions.assertThat(Lotto.getLottoByInput(Arrays.asList(1, 2, 10, 11, 12, 13)).compareLotto(hitNumbers))
                 .as("미당첨케이스").isLessThan(3);
         assertions.assertAll();
     }
@@ -93,22 +94,23 @@ public class LottoTest {
     public void 수익률계산() {
         double expected_1 = 250;
         double expected_2 = 35.7;
-        List<Integer> target_1 = Arrays.asList(3, 0);
-        Integer[] arr_target_2 = new Integer[14];
-        for (int i = 0; i < arr_target_2.length; i++) {
-            arr_target_2[i] = 0;
+        Lotto nonHitLotto = Lotto.getLottoByInput(Arrays.asList(11, 12, 13, 14, 15, 16));
+        Lotto thirdHitLotto = Lotto.getLottoByInput(Arrays.asList(1, 2 , 3, 14, 15, 16));
+        HitNumber hitNumber = new HitNumber("1, 2, 3, 4, 5, 6");
+        List<Lotto> lottoes1 = new ArrayList<Lotto>();
+        List<Lotto> lottoes2 = new ArrayList<Lotto>();
+        lottoes1.add(nonHitLotto);
+        lottoes1.add(thirdHitLotto);
+        for(int i = 0 ; i < 13 ; i++){
+            lottoes2.add(nonHitLotto);
         }
-        arr_target_2[0] = 3;
-        List<Integer> target_2 = Arrays.asList(arr_target_2);
-
+        lottoes2.add(thirdHitLotto);
         SoftAssertions assertions = new SoftAssertions();
-
-
-        assertions.assertThat(LottoClient.calculateTemplate(target_1))
+        assertions.assertThat(LottoClient.calculateBenefitRate(lottoes1, hitNumber))
                 .as("2개 중 3 등 하나")
                 .isEqualTo(expected_1);
 
-        assertions.assertThat(LottoClient.calculateTemplate(target_2))
+        assertions.assertThat(LottoClient.calculateBenefitRate(lottoes2,hitNumber))
                 .as("14개 중 3 등 하나")
                 .isEqualTo(expected_2);
 
