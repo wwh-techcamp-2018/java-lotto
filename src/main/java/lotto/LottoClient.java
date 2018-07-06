@@ -87,16 +87,6 @@ public class LottoClient {
         double sum = getSum(lottoResults);
         return floor(sum / (lottoResults.size() * LOTTO_PRICE) * 100);
     }
-//
-//    public static double calculateBenefitRate(List<Integer> lottoResults) {
-//        double sum = 0;
-//        for (int result : lottoResults) {
-//            if (resultAwardMap.containsKey(result))
-//                sum += resultAwardMap.get(result);
-//
-//        }
-//        return floor(sum / (lottoResults.size() * LOTTO_PRICE) * 100);
-//    }
 
     private static double getSum(List<Integer> lottoResults) {
         return (double) lottoResults.stream()

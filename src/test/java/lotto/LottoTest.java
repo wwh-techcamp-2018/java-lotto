@@ -11,7 +11,6 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoTest {
-    //List<Lotto> lottoes;
     Lotto singleLotto;
     LottoFactory lottoFactory;
 
@@ -29,15 +28,11 @@ public class LottoTest {
     @Test
     public void 로또구입금액딱맞음() {
         assertThat(LottoClient.maxLottoToBuy(new Money(5000))).isEqualTo(5);
-//        lottoes = lottoFactory.createLotto(5*1000);
-//        assertEquals(5, lottoes.size());
     }
 
     @Test
     public void 로또구입금액잔액있음() {
         assertThat(LottoClient.maxLottoToBuy(new Money(5300))).isEqualTo(5);
-//        lottoes = lottoFactory.createLotto(5*1000+300);
-//        assertEquals(5, lottoes.size());
     }
 
     @Test(expected = IllegalArgumentException.class)

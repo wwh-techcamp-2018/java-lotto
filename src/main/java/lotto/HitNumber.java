@@ -16,9 +16,6 @@ public class HitNumber {
                 toIntList(split(inputNumber, DELIMITER)));
     }
 
-//    public List<Integer> getNumbers() {
-//        return hitNumbers;//Arrays.asList(new Integer[]{1,2,3,4,5,6});
-//    }
 
     public static boolean isValid(String answer) {
         String[] numbers = split(answer, DELIMITER);
