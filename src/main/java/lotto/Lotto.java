@@ -1,5 +1,6 @@
 package lotto;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -11,14 +12,23 @@ public class Lotto {
     public static final int LOTTO_SIZE = 6;
     public static final int LOTTO_PRICE = 1000;
 
-    private List<Integer> lottoNumbers;
+    public static List<Integer> settingNumbers;
+
+    static {
+        settingNumbers = IntStream.range(1, 46).mapToObj(i -> i).collect(Collectors.toList());
+    }
+
+    private List<Integer> lottoNumbers = settingNumbers;
 
     public Lotto() {
         makeLotto();
     }
 
     public Lotto(String[] numbers) {
-        this.lottoNumbers = sortAscendingOrder(Arrays.stream(numbers).map(i -> Integer.parseInt(i.trim())).collect(Collectors.toList()));
+        this.lottoNumbers = sortAscendingOrder(Arrays.stream(numbers)
+                .map(i -> i.trim())
+                .map(i -> Integer.parseInt(i))
+                .collect(Collectors.toList()));
     }
 
     public void makeLotto() {
@@ -30,9 +40,8 @@ public class Lotto {
     }
 
     public List shuffleNumbers() {
-        List<Integer> candidates = IntStream.range(1, 46).mapToObj(i -> i).collect(Collectors.toList());
-        Collections.shuffle(candidates);
-        return candidates;
+        Collections.shuffle(lottoNumbers);
+        return lottoNumbers;
     }
 
     public List selectSixNumbers(List<Integer> candidates) {
@@ -51,7 +60,6 @@ public class Lotto {
     public int hitLottoNumber(Lotto winLotto) {
         winLotto.getLottoNumbers().retainAll(this.lottoNumbers);
         return winLotto.getLottoNumbers().size();
-
     }
 
     @Override

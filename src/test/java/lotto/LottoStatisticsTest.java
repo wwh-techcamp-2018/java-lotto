@@ -15,6 +15,8 @@ public class LottoStatisticsTest {
     public void setUp() throws Exception {
         List<Lotto> tempLotto = new ArrayList<>();
         tempLotto.add(new Lotto(new String[] {"6", "5", "4", "3", "2", "1"}));
+        tempLotto.add(new Lotto(new String[] {"7", "5", "4", "3", "2", "1"}));
+        tempLotto.add(new Lotto(new String[] {"8", "5", "4", "3", "2", "1"}));
         LottoContainer tempLottoContainer = new LottoContainer(tempLotto);
 
         statisticsTest = new LottoStatistics(tempLottoContainer);
@@ -23,20 +25,20 @@ public class LottoStatisticsTest {
     @Test
     public void doStatistics() {
         Map map = statisticsTest.doStatistics(new Lotto(new String[]{"6", "5", "4", "3", "2", "1"}));
-        assertEquals(1, map.get("_"+6));
-        assertEquals(1, map.get("_"+5));
+        assertEquals(2, map.get(PrizeData.SECOND));
+        assertEquals(1, map.get(PrizeData.FIRST));
     }
 
     @Test
     public void getCumulativeMoney() {
         HashMap map = statisticsTest.doStatistics(new Lotto(new String[]{"6", "5", "4", "3", "2", "1"}));
-        assertEquals(2000000000, statisticsTest.getCumulativeMoney(map));
+        assertEquals(2003000000, statisticsTest.getCumulativeMoney(map));
     }
 
     @Test
     public void getProfitRate() {
         HashMap map = statisticsTest.doStatistics(new Lotto(new String[]{"6", "5", "4", "3", "2", "1"}));
-        assertEquals(200000000.0, statisticsTest.getProfitRate(statisticsTest.getCumulativeMoney(map)), 0.0f);
+        assertEquals(66766600, statisticsTest.getProfitRate(statisticsTest.getCumulativeMoney(map)), 0.0f);
 
     }
 }

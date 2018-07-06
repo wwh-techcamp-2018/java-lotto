@@ -5,36 +5,31 @@ import java.util.HashMap;
 public class LottoStatistics {
 
     private LottoContainer lottoContainer;
+    private HashMap<PrizeData, Integer> results;
 
     public LottoStatistics(LottoContainer lottoContainer) {
         this.lottoContainer = lottoContainer;
     }
 
-    public HashMap makeMap() {
+    private HashMap<PrizeData, Integer> makeMap() {
         HashMap statistics = new HashMap<PrizeData, Integer>();
-
         for (PrizeData prizeData : PrizeData.values()) {
-            statistics.put(prizeData.toString(), 0);
+            statistics.put(prizeData, 0);
         }
 
         return statistics;
     }
 
-    public HashMap doStatistics(Lotto winLotto) {
-        HashMap statistics = makeMap();
-
-        for (Lotto lotto : lottoContainer.getLottoContainer()) {
-            Integer temp = (Integer) statistics.getOrDefault(lotto.hitLottoNumber(winLotto), 0);
-            statistics.put("_" + lotto.hitLottoNumber(winLotto), ++temp);
-        }
-        return statistics;
+    public HashMap<PrizeData, Integer> doStatistics(Lotto winLotto) {
+        this.results = lottoContainer.hitLottoNumbers(winLotto);
+        return results;
     }
 
     public int getCumulativeMoney(HashMap<PrizeData, Integer> statistics) {
         int sum = 0;
 
         for (PrizeData prizeData : PrizeData.values()) {
-            sum += prizeData.getPrizeMoney() * statistics.get(prizeData.toString());
+            sum += prizeData.calculate(prizeData, statistics.get(prizeData));
         }
 
         return sum;

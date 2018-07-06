@@ -20,7 +20,7 @@ public class LottoFactoryTest {
 
     @Test
     public void buyLotto() {
-        LottoContainer lottoContainer = new LottoContainer(12);
+        LottoContainer lottoContainer = new LottoContainer(12000);
         assertEquals(12, lottoContainer.countLotto());
     }
 
