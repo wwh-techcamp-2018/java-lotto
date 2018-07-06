@@ -6,8 +6,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 public class BalanceTest {
-    @Test (expected = IllegalArgumentException.class)
+    @Test(expected = IllegalArgumentException.class)
     public void balance() {
-       new Balance(999);
+        new Balance(999);
     }
 }

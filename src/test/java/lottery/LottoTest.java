@@ -21,4 +21,21 @@ public class LottoTest {
         randomLotto.draw();
         assertThat(randomLotto.getLotto().size()).isEqualTo(6);
     }
+
+    @Test
+    public void of() {
+        Lotto lotto = Lotto.of("1, 2, 3, 4, 5, 6");
+        lotto.draw();
+        assertThat(lotto.getLotto().size()).isEqualTo(6);
+    }
+
+    @Test
+    public void match() {
+        Lotto lotto = Lotto.of("1, 2, 3, 4, 5, 6");
+        WinningLotto winningLotto = new WinningLotto(Lotto.of("1, 2, 3, 4, 5, 31"));
+        lotto.draw();
+        winningLotto.draw();
+        Rank rank = lotto.match(winningLotto);
+        assertThat(rank).isEqualTo(Rank.THIRD);
+    }
 }

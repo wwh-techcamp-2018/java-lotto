@@ -24,6 +24,15 @@ public class Lotto {
         return this.lottoNumbers;
     }
 
+    public static Lotto of(String numbers) {
+        String[] splitted = numbers.split(",");
+        int[] arr = new int[splitted.length];
+        for (int i = 0; i < splitted.length; i++) {
+            arr[i] = Integer.parseInt(splitted[i].trim());
+        }
+        return new Lotto(arr);
+    }
+
     public void draw() {
         for (int i = 0; i < LOTTO_LENGTH; i++) {
             this.lottoNumbers.add(this.numberGenerator.generate());
@@ -36,5 +45,19 @@ public class Lotto {
             lottoDto.add(lottoNumber);
         }
         return lottoDto;
+    }
+
+    public Rank match(WinningLotto winningLotto) {
+        int numMatched = 0;
+        for (LottoNumber lottoNumber : lottoNumbers) {
+            numMatched += winningLotto.contains(lottoNumber);
+        }
+        return Rank.matchScore(numMatched);
+    }
+
+    public boolean contains(LottoNumber lottoNumber) {
+        if (lottoNumbers.contains(lottoNumber))
+            return true;
+        return false;
     }
 }

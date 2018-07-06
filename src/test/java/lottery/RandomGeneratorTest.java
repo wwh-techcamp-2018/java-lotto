@@ -2,6 +2,9 @@ package lottery;
 
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RandomGeneratorTest {
@@ -11,4 +14,5 @@ public class RandomGeneratorTest {
         RandomGenerator randomGenerator = new RandomGenerator();
         assertThat(randomGenerator.generate()).isInstanceOf(LottoNumber.class);
     }
+
 }

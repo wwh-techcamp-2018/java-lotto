@@ -15,4 +15,8 @@ public class Balance {
     public int toInt() {
         return this.balance;
     }
+
+    public float toFloat() {
+        return (float) this.balance;
+    }
 }
