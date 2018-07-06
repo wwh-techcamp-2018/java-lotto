@@ -3,7 +3,9 @@ package lottery;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -12,7 +14,14 @@ public class WinningResultTest {
 
     @Before
     public void setUp() {
-        winningResult = new WinningResult(Arrays.asList(1, 2, 3, 4, 5, 6));
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        lottoNumbers.add(new LottoNumber(1));
+        lottoNumbers.add(new LottoNumber(2));
+        lottoNumbers.add(new LottoNumber(3));
+        lottoNumbers.add(new LottoNumber(4));
+        lottoNumbers.add(new LottoNumber(5));
+        lottoNumbers.add(new LottoNumber(6));
+        winningResult = new WinningResult(new WinningLottery(Lottery.createLottery(lottoNumbers)));
     }
 
     @Test
@@ -24,7 +33,14 @@ public class WinningResultTest {
 
     @Test
     public void calProfit() {
-        int actual = winningResult.calcProfit(Arrays.asList(new Lottery(Arrays.asList(1, 2, 3, 4, 5, 6))));
-        assertEquals(200000000, actual);
+        List<LottoNumber> lottoNumbers = new ArrayList<>();
+        lottoNumbers.add(new LottoNumber(1));
+        lottoNumbers.add(new LottoNumber(2));
+        lottoNumbers.add(new LottoNumber(3));
+        lottoNumbers.add(new LottoNumber(4));
+        lottoNumbers.add(new LottoNumber(5));
+        lottoNumbers.add(new LottoNumber(6));
+        int actual = winningResult.calcProfit(Arrays.asList(Lottery.createLottery(lottoNumbers)));
+        assertEquals(2000000000, actual);
     }
 }

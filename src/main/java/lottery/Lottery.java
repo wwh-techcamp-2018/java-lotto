@@ -1,22 +1,25 @@
 package lottery;
 
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class Lottery {
 
     public final static int COUNT_NUM = 6;
     public final static int PRICE = 1000;
 
-    private List<Integer> nums;
+    private List<LottoNumber> lottoNumbers;
 
-    public Lottery(List<Integer> nums) {
-        this.nums = nums;
+    private Lottery(List<LottoNumber> lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
     }
 
-    public int getNumOfMatching(List<Integer> winningLottery) {
-        long numOfMatching = winningLottery.stream()
-                .filter(winningNum -> nums.contains(winningNum))
+    public static Lottery createLottery(List<LottoNumber> lottoNumberList) {
+        return new Lottery(lottoNumberList);
+    }
+
+    public int getNumOfMatching(WinningLottery winningLottery) {
+        long numOfMatching = winningLottery.getLottery().lottoNumbers.stream()
+                .filter(winningNum -> lottoNumbers.contains(winningNum))
                 .count();
         return (int) numOfMatching;
     }
@@ -26,20 +29,20 @@ public class Lottery {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Lottery lottery = (Lottery) o;
-        return Objects.equals(nums, lottery.nums);
+        return Objects.equals(lottoNumbers, lottery.lottoNumbers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nums);
+        return Objects.hash(lottoNumbers);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for (int num : nums) {
-            sb.append(num);
+        for (LottoNumber lottoNumber : lottoNumbers) {
+            sb.append(lottoNumber);
             sb.append(", ");
         }
         sb.deleteCharAt(sb.length() - 2);

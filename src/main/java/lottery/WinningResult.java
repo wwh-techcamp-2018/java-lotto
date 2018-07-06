@@ -5,21 +5,21 @@ import java.util.List;
 
 public class WinningResult {
 
-    // 4 : 3, 4, 5, 6
     private final static int NUM = 4;
-    private final static int MIN_MATCHING = 3;
-    private final static int MAX_MATCHING = 6;
-    private final static int[] PRIZE_MONEYS = {5000, 50000, 1500000, 2000000000};
+
+    public final static int MIN_MATCHING = 3;
+    public final static int MAX_MATCHING = 6;
 
     private int[] result;
-    private List<Integer> winningLottery;
+    private WinningLottery winningLottery;
 
-    public WinningResult(List<Integer> winningLottery) {
+    public WinningResult(WinningLottery winningLottery) {
         result = new int[NUM];
         this.winningLottery = winningLottery;
     }
 
     public int calcProfit(List<Lottery> lotteries) {
+
         for (Lottery lottery : lotteries) {
             count(lottery);
         }
@@ -28,9 +28,10 @@ public class WinningResult {
 
     private int calcProfit() {
         int sum = 0;
-        for (int i = 0; i < result.length; i++) {
-            sum += result[i] * PRIZE_MONEYS[i];
+        for (Rank rank : Rank.values()) {
+            sum += result[rank.getMatchingCount() - MIN_MATCHING] * rank.getProfit();
         }
+
         return sum;
     }
 
@@ -44,6 +45,16 @@ public class WinningResult {
         if (numOfMatching < MIN_MATCHING) return false;
         if (numOfMatching > MAX_MATCHING) return false;
         return true;
+    }
+
+    public String getWinningStatistic() {
+        StringBuilder sb = new StringBuilder();
+        for (Rank rank : Rank.values()) {
+            sb.append(rank.getMatchingCount()+"개 일치 ("+rank.getProfit()+")");
+            sb.append("- "+result[rank.getMatchingCount() - WinningResult.MIN_MATCHING]);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
     @Override

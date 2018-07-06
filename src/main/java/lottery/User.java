@@ -1,8 +1,7 @@
 package lottery;
 
-import common.RandomNumberGenerator;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class User {
@@ -11,25 +10,39 @@ public class User {
     private int money;
     private List<Lottery> lotteries;
 
-    public User(int money){
+    public User() {
         lotteries = new ArrayList<>();
+    }
+
+    private void setMoney(int money) {
         this.money = money;
     }
 
-    public List<Lottery> buyLottery() {
-        int numOfLotteries = getNumOfLotteries();
+    public List<Lottery> buyLottery(int money) {
+        setMoney(money);
+
+        int numOfLotteries = getNumOfLotteries(money);
         for (int i = 0; i < numOfLotteries; i++) {
-            lotteries.add(new Lottery(RandomNumberGenerator.createDistinctRandomNumList(Lottery.COUNT_NUM)));
+            lotteries.add(Lottery.createLottery(createLottoNumber()));
         }
         return lotteries;
     }
 
-
-    public int calcRatio(int profit) {
-        return profit / money * PERCENT;
+    public List<LottoNumber> createLottoNumber() {
+        Collections.shuffle(LottoNumberSet.lottoNumber);
+        List<LottoNumber> lotto = new ArrayList<>();
+        List<Integer> lottoNumberList = LottoNumberSet.lottoNumber.subList(0, Lottery.COUNT_NUM);
+        for (Integer i : lottoNumberList) {
+            lotto.add(LottoNumberSet.lottoNumberMap.get(i));
+        }
+        return lotto;
     }
 
-    public int getNumOfLotteries() {
+    public double calcRatio(int profit) {
+        return (double)profit / money * PERCENT;
+    }
+
+    public int getNumOfLotteries(int money) {
         return money / Lottery.PRICE;
     }
 }

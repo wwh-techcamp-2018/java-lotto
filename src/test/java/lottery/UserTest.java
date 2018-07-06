@@ -11,16 +11,20 @@ public class UserTest {
 
     @Before
     public void setUp() throws Exception {
-        user = new User(14000);
+        user = new User();
     }
 
     @Test
     public void getRatio() {
-        assertEquals(100, user.calcRatio(14000));
+        user.buyLottery(14000);
+        int profit = 20000;
+        double ratio = 142.857;
+        assertEquals(ratio, user.calcRatio(profit),0.001);
     }
 
     @Test
     public void getNumOfLotteries() {
-        assertEquals(14, user.getNumOfLotteries());
+        assertEquals(14, user.getNumOfLotteries(14000));
     }
+
 }
