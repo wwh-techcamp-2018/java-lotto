@@ -1,52 +1,49 @@
 package lotto.values;
 
 import lotto.LottoNumberGenerator;
+import lotto.StringParser;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Lotto {
-    private List<LottoNumber> lottoNumbers;
+    private  Set<LottoNumber> lottoNumbers;
+
+    public Lotto(String string) {
+        this(StringParser.parse(string));
+    }
 
     public Lotto(List<Integer> numbers) {
+        this(new HashSet<>(numbers));
+    }
+
+    public Lotto(Set<Integer> numbers) {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException();
         }
-        if (hasDuplicate(numbers)) {
-            throw new IllegalArgumentException();
-        }
-        Collections.sort(numbers);
 
         this.lottoNumbers = numbers.stream()
                 .map(LottoNumber::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
     public Lotto() {
         this(LottoNumberGenerator.generateNumbers());
     }
 
-    private boolean hasDuplicate(List<Integer> numbers) {
-        Set<Integer> appeared = new HashSet<>(numbers);
-        if (appeared.size() < numbers.size()) {
-            return true;
-        }
-        return false;
-    }
 
-    public int match(Lotto lotto) {
-        return (int) this.lottoNumbers.stream()
+    public Rank match(Lotto lotto) {
+        return Rank.valueOf((int) this.lottoNumbers.stream()
                 .filter(lotto.lottoNumbers::contains)
-                .count();
+                .count());
     }
 
     public String toString() {
+        List<Integer> lottoNumbersList = lottoNumbers.stream().map(LottoNumber::toInt).collect(Collectors.toList());
+        Collections.sort(lottoNumbersList);
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("[");
-        for (LottoNumber lottoNumber : lottoNumbers) {
+        for (Integer lottoNumber : lottoNumbersList) {
             stringBuilder.append(lottoNumber.toString())
             .append(", ");
         }

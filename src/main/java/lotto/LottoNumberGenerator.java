@@ -1,8 +1,6 @@
 package lotto;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class LottoNumberGenerator {
     private static List<Integer> numbers = new ArrayList<>();
@@ -12,8 +10,8 @@ public class LottoNumberGenerator {
         }
     }
 
-    public static List<Integer> generateNumbers() {
+    public static Set<Integer> generateNumbers() {
         Collections.shuffle(numbers);
-        return numbers.subList(0, 6);
+        return new HashSet<>(numbers.subList(0, 6));
     }
 }

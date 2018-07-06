@@ -12,7 +12,7 @@ public class LottoMain {
         int money = InputView.getMoney();
         List<Lotto> lottoList = LottoGame.buyLotto(money);
         GameView.showLottoList(lottoList);
-        Lotto winLotto = new Lotto(StringParser.parse(InputView.getWinNumber()));
+        Lotto winLotto = new Lotto(InputView.getWinNumber());
         ResultView.showStatistics(LottoGame.calculateStatistics(lottoList, winLotto));
     }
 }

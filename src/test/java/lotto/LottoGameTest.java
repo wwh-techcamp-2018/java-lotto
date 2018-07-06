@@ -43,15 +43,6 @@ public class LottoGameTest {
     }
 
     @Test
-    public void getRankCount() {
-        assertThat(statistics.getCount(Rank.FIRST)).isOne();
-        assertThat(statistics.getCount(Rank.SECOND)).isOne();
-        assertThat(statistics.getCount(Rank.THIRD)).isOne();
-        assertThat(statistics.getCount(Rank.FOURTH)).isOne();
-        assertThat(statistics.getCount(Rank.MISS)).isOne();
-    }
-
-    @Test
     public void buyLotto() {
         List<Lotto> lottoList = LottoGame.buyLotto(14000);
         assertThat(lottoList).hasSize(14);

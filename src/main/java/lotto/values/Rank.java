@@ -1,5 +1,6 @@
 package lotto.values;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,17 +13,10 @@ public enum Rank {
 
     private final int matches;
     private final int price;
-    private static Map<Integer, Rank> matchesToRank = new HashMap<>();
 
     Rank(int matches, int price) {
         this.matches = matches;
         this.price = price;
-    }
-
-    static {
-        for (Rank rank : values()) {
-            matchesToRank.put(rank.matches, rank);
-        }
     }
 
     public int getMatches() {
@@ -35,10 +29,20 @@ public enum Rank {
 
     public static Rank valueOf(int number) {
         if (number >= 0 && number <= 2)  {
-            number = 0;
+            return MISS;
         }
-        return matchesToRank.get(number);
+
+        return Arrays.stream(values())
+                .filter((rank) -> rank.isMatches(number))
+                .findFirst()
+                .orElse(null);
     }
 
+    public int getTotalPrice(int count) {
+        return count * price;
+    }
 
+    private boolean isMatches(int matches) {
+        return this.matches == matches;
+    }
 }

@@ -16,25 +16,50 @@ public class LottoStatistics {
 
         Rank rank;
         for (Lotto lotto : lottoList) {
-            rank = Rank.valueOf(winLotto.match(lotto));
+            rank = winLotto.match(lotto);
             statistics.put(rank, statistics.get(rank) + 1);
         }
     }
 
     public double getYield() {
-        // 상금 / 투자금 * 100
-        int totalLottoCount = 0;
-        int totalPrice = 0;
-        for (Rank rank : Rank.values()) {
-            int count = statistics.get(rank);
-            totalPrice += count * rank.getPrice();
-            totalLottoCount += count;
-        }
+        return calculateYield(calculateTotalPrice(), calculateTotalCount());
+    }
+
+    private double calculateYield(int totalPrice, int totalLottoCount) {
         return (double) totalPrice / (totalLottoCount * LottoGame.LOTTO_PRICE) * 100;
     }
 
-    public int getCount(Rank rank) {
+    private int calculateTotalPrice() {
+        int totalPrice = 0;
+        for (Rank rank : Rank.values()) {
+            totalPrice += rank.getTotalPrice(getCount(rank));
+        }
+        return totalPrice;
+    }
+
+    private int calculateTotalCount() {
+        int totalCount = 0;
+        for (Rank rank : Rank.values()) {
+            totalCount += getCount(rank);
+        }
+        return totalCount;
+    }
+
+    private int getCount(Rank rank) {
         return statistics.get(rank);
     }
 
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        Rank rank;
+        for (int matches = Rank.FOURTH.getMatches(); matches <= Rank.FIRST.getMatches() ; matches++) {
+            rank = Rank.valueOf(matches);
+            builder.append(String.format("%d개 일치(%d원)- %d개\n",
+                    rank.getMatches(),
+                    rank.getPrice(),
+                    this.getCount(rank)));
+        }
+        return builder.toString();
+    }
 }
