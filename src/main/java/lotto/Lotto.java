@@ -6,56 +6,68 @@ import java.util.List;
 import java.util.Objects;
 
 public class Lotto {
-    private static final String DEFAULT_DELIMETER = ",";
-    private List<Integer> numbers;
+    private static final String DEFAULT_DELIMITER = ",";
+    private static final Integer LOTTO_MIN_NUMBER = 1;
+    private static final Integer LOTTO_MAX_NUMBER = 45;
+
+    private List<LottoNumber> numbers;
 
     public Lotto() {
-        this.numbers = new ArrayList<>();
+        numbers = new ArrayList<>();
+        this.numbers = getSixNumbers(shuffle(pushFortyFive()));
     }
 
-    public Lotto createSixNumbers() {
-        pushFortyFive();        // 1~45 배열 만들기
-        return getSixNumbers(); // 배열 섞기
-    }
-
-    private Lotto getSixNumbers() {
-        Collections.shuffle(numbers);
-        numbers = numbers.subList(0, 6);
-        return this;
-    }
-
-    private void pushFortyFive() {
-        for (int i = 0; i < 45; i++) {
-            numbers.add(i + 1);
+    public Lotto(String inputNumbers) {
+        numbers = new ArrayList<>();
+        String[] strs = getSplit(getTrim(inputNumbers));
+        for (String str : strs) {
+            numbers.add(new LottoNumber(Integer.parseInt(getTrim(str))));
         }
     }
 
-    public int matchBy(Lotto winnerLotto) {
-        List<Integer> winnerNumbers = winnerLotto.getNumbers();
+    private List<LottoNumber> getSixNumbers(List<LottoNumber> numbers) {
+        return numbers.subList(0, 6);
+    }
+
+
+    private List<LottoNumber> shuffle(List<LottoNumber> numbers) {
+        Collections.shuffle(numbers);
+        return numbers;
+    }
+
+    private List<LottoNumber> pushFortyFive() {
+        List<LottoNumber> numbers = new ArrayList<>();
+        for (int i = LOTTO_MIN_NUMBER; i <= LOTTO_MAX_NUMBER; i++) {
+            numbers.add(new LottoNumber(i));
+        }
+        return numbers;
+    }
+
+    // 로또 메소드
+    public int matchCountBy(Lotto winnerLotto) {
         int count = 0;
-        for (Integer winnerNumber : winnerNumbers) {
-            count = (numbers.contains(winnerNumber)) ? ++count : count;
+        for (LottoNumber number : numbers) {
+            count += winnerLotto.increment(number);
         }
         return count;
     }
 
-    public Lotto createWinLotto(String winNumbers) {
-        String[] strs = getSplit(getTrim(winNumbers));
-        for (String str : strs) {
-            numbers.add(Integer.parseInt(getTrim(str)));
-        }
-        return this;
+    // 당첨로또 메소드
+    private int increment(LottoNumber number) {
+        return this.numbers.contains(number) ? 1 : 0;
     }
 
-    private String[] getSplit(String winNumbers) {
-        return winNumbers.split(DEFAULT_DELIMETER);
+
+    private String[] getSplit(String inputNumbers) {
+        return inputNumbers.split(DEFAULT_DELIMITER);
     }
 
-    private String getTrim(String winNumbers) {
-        return winNumbers.trim();
+    private String getTrim(String inputNumbers) {
+        return inputNumbers.trim();
     }
 
-    public List<Integer> getNumbers() {
+
+    public List<LottoNumber> getNumbers() {
         return numbers;
     }
 

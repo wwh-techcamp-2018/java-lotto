@@ -7,13 +7,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LottoFactoryTest {
     /**
      * TODO
-     * 1. 금액 입력 시 로또 배열 반환
-     * 2. 로또 배열 한 개와 당첨 번호 입력 시 맞춘 개수 반환
-     *
      * DONE
+     * 금액 입력 시 로또 리스트 반환
      */
     @Test
     public void checkLottoList() {
-        assertThat(LottoFactory.createLotto(14000).size()).isEqualTo(14);
+        assertThat(LottoFactory.createLottoList(14000).size()).isEqualTo(14);
     }
 }

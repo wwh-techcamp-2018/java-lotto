@@ -1,9 +1,8 @@
-package lotto;
+package lotto.view;
 
 import java.util.Scanner;
 
 public class ConsoleInputView {
-
     private static Scanner sc = new Scanner(System.in);
 
     public static int getPrice() {
