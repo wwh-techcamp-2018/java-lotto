@@ -13,7 +13,7 @@ public class LottoGame {
     }
 
     public Lotto createWinningLotto(String numbers) {
-        winningLotto = Lotto.ofString(numbers);
+        winningLotto = LottoFactory.createFixedLotto(numbers);
         return winningLotto;
     }
 

@@ -22,7 +22,11 @@ public class LottoFactory {
         return lottos;
     }
 
-    private static Lotto createAutoLotto() {
+    public static Lotto createAutoLotto() {
         return Lotto.ofBlank();
+    }
+
+    public static Lotto createFixedLotto(String text) {
+        return Lotto.ofString(text);
     }
 }

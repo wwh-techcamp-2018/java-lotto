@@ -26,19 +26,14 @@ public class LottoGameTest {
 
     @Test
     public void get_로또_결과() {
-        LottoResult lotto3rdResult = new LottoResult(Match.THIRD ,0);
-        LottoResult lotto4thResult = new LottoResult(Match.FOURTH ,0);
-        LottoResult lotto5thResult = new LottoResult(Match.FIFTH ,0);
-        LottoResult lotto6thResult = new LottoResult(Match.SIXTH, 1);
-
-        List<Lotto> lottos = Arrays.asList(Lotto.ofString("1,2,3,4,5,6"));
-        Lotto winningLotto = Lotto.ofString("1,2,3,4,5,6");
+        List<Lotto> lottos = Arrays.asList(LottoFactory.createFixedLotto("1,2,3,4,5,6"));
+        Lotto winningLotto = LottoFactory.createFixedLotto("1,2,3,4,5,6");
 
         assertThat(lottoGame.getResult(lottos, winningLotto))
-                .contains(lotto3rdResult)
-                .contains(lotto4thResult)
-                .contains(lotto5thResult)
-                .contains(lotto6thResult);
+                .contains(new LottoResult(Match.THIRD ,0))
+                .contains(new LottoResult(Match.FOURTH ,0))
+                .contains(new LottoResult(Match.FIFTH ,0))
+                .contains(new LottoResult(Match.SIXTH, 1));
     }
 
     @Test

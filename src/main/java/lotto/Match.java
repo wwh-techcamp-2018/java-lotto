@@ -34,10 +34,6 @@ public enum Match {
         return matchCount;
     }
 
-    public int getPrice() {
-        return price;
-    }
-
     public String getMessage() {
         return message;
     }

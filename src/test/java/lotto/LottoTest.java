@@ -16,12 +16,12 @@ public class LottoTest {
 
     @Test
     public void create_로또_생성() {
-        assertThat(Lotto.ofBlank().getNumbers().size()).isEqualTo(6);
+        assertThat(lotto.getNumbers().size()).isEqualTo(6);
     }
 
     @Test
     public void create_당첨로또_생성() {
-        assertThat(Lotto.ofString("1,2,3,4,5,6").getNumbers())
+        assertThat(LottoFactory.createFixedLotto("1,2,3,4,5,6").getNumbers())
                 .contains(new LottoNumber(1))
                 .contains(new LottoNumber(2))
                 .contains(new LottoNumber(3))
@@ -32,8 +32,8 @@ public class LottoTest {
 
     @Test
     public void get_일치_개수() {
-        Lotto lotto = Lotto.ofString("1,2,3,4,5,7");
-        Lotto winnerLotto = Lotto.ofString("1,2,3,4,5,6");
+        Lotto lotto = LottoFactory.createFixedLotto("1,2,3,4,5,7");
+        Lotto winnerLotto = LottoFactory.createFixedLotto("1,2,3,4,5,6");
 
         assertThat(lotto.getMatchCount(winnerLotto)).isEqualTo(5);
     }
