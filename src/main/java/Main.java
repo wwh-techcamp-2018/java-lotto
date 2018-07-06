@@ -1,4 +1,5 @@
-import lotto.LottoGame;
+import lotto.domain.Lotto;
+import lotto.domain.LottoGame;
 import lotto.view.InputView;
 import lotto.view.ResultView;
 
@@ -6,18 +7,22 @@ public class Main {
 
     public static void main(String[] args) {
         InputView inputView = new InputView();
-        int investMoney = inputView.getMoney();
+        int money = inputView.getMoney();
 
         LottoGame lottoGame = new LottoGame();
-        ResultView resultView = new ResultView();
-        resultView.printLottos(lottoGame.buyMaximumLottos(investMoney));
-        resultView.printLottoList(lottoGame.getLottoList());
+        lottoGame.setMoney(money);
+        lottoGame.buyMaximumLottos();
+
+        ResultView resultView = new ResultView(lottoGame.getLottoDTO());
+        resultView.printLottoList();
 
         String winNumbers = inputView.getWinNumbers();
-        int earnMoney = lottoGame.getTotalPrize(winNumbers);
+        lottoGame.setWinLotto(Lotto.of(winNumbers));
+        lottoGame.makeStatistics();
+        lottoGame.calculateEarningRate();
 
-        resultView.printStatistics(winNumbers, lottoGame.getLottoList());
-        resultView.printRate(LottoGame.getEarningRate(earnMoney, investMoney));
+        resultView.printStatistics();
+        resultView.printRate();
     }
 
 }

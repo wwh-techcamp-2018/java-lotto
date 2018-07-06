@@ -2,6 +2,7 @@ package lotto.util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class InputParser {
 
@@ -14,6 +15,10 @@ public class InputParser {
             list.add(value.trim());
         }
         return list;
+    }
+
+    public static List<Integer> toInts(List<String> tokens){
+        return tokens.stream().map(Integer::parseInt).collect(Collectors.toList());
     }
 
 }

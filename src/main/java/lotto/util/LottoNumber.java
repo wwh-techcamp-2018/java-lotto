@@ -1,26 +1,40 @@
-package lotto;
+package lotto.util;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LottoNumber implements Comparable<LottoNumber> {
 
-    private static final int LOTTO_MIN = 1;
-    private static final int LOTTO_MAX = 45;
+    private static final Map<Integer, LottoNumber> lottoNumberPool = new HashMap<>();
+
+    public static final int MIN = 1;
+    public static final int MAX = 45;
+
+    static{
+        for (int i = MIN; i <= MAX; i++) {
+            lottoNumberPool.put(i, new LottoNumber(i));
+        }
+    }
 
     private int number;
 
-    public LottoNumber(int number) {
-        if (number < LOTTO_MIN) {
-            throw new RuntimeException();
-        }
-        if (number > LOTTO_MAX) {
-            throw new RuntimeException();
-        }
+    private LottoNumber(int number) {
         this.number = number;
     }
 
-    public LottoNumber(String number) {
-        this(Integer.parseInt(number));
+    public static LottoNumber of(int number) {
+        isRange(number);
+        return lottoNumberPool.get(number);
+    }
+
+    private static void isRange(int number) {
+        if (number < MIN) {
+            throw new RuntimeException();
+        }
+        if (number > MAX) {
+            throw new RuntimeException();
+        }
     }
 
     public int getNumber() {
@@ -53,10 +67,6 @@ public class LottoNumber implements Comparable<LottoNumber> {
         if (other.getNumber() == this.getNumber()) {
             return 0;
         }
-        if (other.getNumber() > this.getNumber()) {
-            return -1;
-        }
-
-        return 0;
+        return -1;
     }
 }

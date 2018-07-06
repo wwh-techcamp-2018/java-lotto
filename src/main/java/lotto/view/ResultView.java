@@ -1,43 +1,40 @@
 package lotto.view;
 
-import lotto.Lotto;
-import lotto.LottoPrize;
+import lotto.domain.Lotto;
+import lotto.domain.Rank;
+import lotto.dto.LottoDTO;
 
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class ResultView {
 
-    public void printLottos(int result) {
-        System.out.println(result + "개를 구매했습니다.");
+    private LottoDTO lottoDTO;
+
+    public ResultView(LottoDTO lottoDTO) {
+        this.lottoDTO = lottoDTO;
     }
 
-    public void printLottoList(List<Lotto> lottoList) {
-        for (Lotto lotto : lottoList) {
+    public void printLottoList() {
+        System.out.println(lottoDTO.getLottoList().size() + "개를 구매했습니다.");
+        for (Lotto lotto : lottoDTO.getLottoList()) {
             System.out.println(lotto);
         }
     }
 
-    public void printRate(String earningRate) {
-        System.out.println("총 수익률은 " + earningRate + "%입니다.");
-    }
-
-    public void printStatistics(String winLottoNumbers, List<Lotto> lottoList) {
+    public void printStatistics() {
         System.out.println("당첨 통계");
         System.out.println("---------");
 
-        int[] prizeCount = new int[LottoPrize.CORRECT_TYPES];
+        Map<Rank, Integer> statistics = lottoDTO.getStatistics();
 
-        for (Lotto lotto : lottoList) {
-            int correct = lotto.getCorrectCount(winLottoNumbers);
-            prizeCount[correct] += 1;
+        for (int i = Rank.WIN_MIN; i < Rank.WIN_MAX; i++) {
+            Rank rank = Rank.of(i);
+            System.out.println(String.format("%s - %d개", rank, statistics.get(rank)));
         }
+    }
 
-        for (int i = 3; i < LottoPrize.CORRECT_TYPES; i++) {
-            LottoPrize prize = new LottoPrize(i);
-            System.out.println(prize.toString() + "-" + prizeCount[i] + "개");
-        }
+    public void printRate() {
+        System.out.println("총 수익률은 " + lottoDTO.getEarningRate() + "%입니다.");
     }
 
 }

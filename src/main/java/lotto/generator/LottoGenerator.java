@@ -1,6 +1,6 @@
 package lotto.generator;
 
-import lotto.LottoNumber;
+import lotto.util.LottoNumber;
 
 import java.util.Set;
 
