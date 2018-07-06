@@ -33,7 +33,7 @@ public enum LottoState {
         return this.reward;
     }
 
-    public boolean isWinner(){
-        return getMatchCount() >= LottoState.FORTH.getMatchCount();
+    public static boolean isWinner(int matchCount) {
+        return matchCount >= LottoState.FORTH.getMatchCount();
     }
 }

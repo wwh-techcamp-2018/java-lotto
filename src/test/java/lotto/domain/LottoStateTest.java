@@ -2,12 +2,12 @@ package lotto.domain;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class LottoStateTest {
 
     @Test
-    public void valueofTest(){
+    public void valueofTest() {
         assertEquals(LottoState.FORTH, LottoState.valueOf(3));
         assertEquals(LottoState.THIRD, LottoState.valueOf(4));
         assertEquals(LottoState.SECOND, LottoState.valueOf(5));
