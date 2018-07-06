@@ -15,13 +15,13 @@ public class RandomLottoGenerator implements LottoGenerator {
     private LottoNumber[] getSixNumbers(List<Integer> lottoNumberSet) {
         LottoNumber[] numbers = new LottoNumber[6];
         for (int i = 0; i < numbers.length; i++) {
-            numbers[i] = new LottoNumber(lottoNumberSet.get(i));
+            numbers[i] = LottoNumber.of(lottoNumberSet.get(i));
         }
         return numbers;
     }
 
     private List<Integer> shuffleNumbers() {
-        List<Integer> lottoNumberSet = Arrays.asList(LOTTO_NUMBER_SET);
+        List<Integer> lottoNumberSet = Arrays.asList(GENERATE_NUMBER_SET);
         Collections.shuffle(lottoNumberSet);
         return lottoNumberSet;
     }

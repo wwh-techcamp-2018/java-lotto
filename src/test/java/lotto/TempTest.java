@@ -17,15 +17,10 @@ public class TempTest {
 
     @Test
     public void aaa() {
-        Integer[] a = {1, 2, 3, 6, 5, 4};
-        LottoNumber[] lis = new LottoNumber[6];
-        for (int i = 0; i < lis.length; i++) {
-            lis[i] = new LottoNumber(a[i]);
-        }
-        Lotto l = new Lotto(lis);
+        Lotto l = Lotto.ofNumbers(1, 2, 3, 6, 5, 4);
 
-        assertThat(l.getLotto()).containsExactly(new LottoNumber(1), new LottoNumber(2), new LottoNumber(3),
-                new LottoNumber(4), new LottoNumber(5), new LottoNumber(6));
+        assertThat(l.getLotto()).containsExactly(LottoNumber.of(1), LottoNumber.of(2), LottoNumber.of(3),
+                LottoNumber.of(4), LottoNumber.of(5), LottoNumber.of(6));
     }
 }
 

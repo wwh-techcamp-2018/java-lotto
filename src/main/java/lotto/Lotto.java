@@ -1,34 +1,77 @@
 package lotto;
 
 import lotto.resource.LottoNumber;
-import lotto.resource.Positive;
+import utils.NumberUtil;
 
 import java.util.*;
 
 public class Lotto {
+    public static final Integer LOTTO_NUMBER = 6;
+
     private List<LottoNumber> lotto;
 
-    public Lotto(LottoNumber[] lotto) {
-        if (lotto.length != 6) {
+    private Lotto(LottoNumber[] lotto) {
+        this.lotto = Arrays.asList(lotto);
+        Set<LottoNumber> lottoSet = new HashSet<LottoNumber>(this.lotto);
+        if(lottoSet.size() != LOTTO_NUMBER){
             throw new IllegalArgumentException();
         }
-        this.lotto = Arrays.asList(lotto);
         Collections.sort(this.lotto);
+    }
+
+    public static Lotto ofComma(String inputString) {
+        return new Lotto(NumberUtil.splitString(inputString));
+    }
+
+    public static Lotto ofNumbers(Integer... inputNumbers) {
+        if(inputNumbers.length != LOTTO_NUMBER) {
+            throw new IllegalArgumentException();
+        }
+        LottoNumber[] lottoNumbers = new LottoNumber[inputNumbers.length];
+        for (int i = 0; i < lottoNumbers.length; i++) {
+            lottoNumbers[i] = LottoNumber.of(inputNumbers[i]);
+        }
+        return new Lotto(lottoNumbers);
+    }
+
+    public static Lotto ofLottoNumbers(LottoNumber[] lottoNumbers) {
+        return new Lotto(lottoNumbers);
+    }
+
+    public static Lotto ofAuto() {
+        return Lotto.ofNumbers(pullSixNumbers(shuffle()));
+    }
+
+    private static Integer[] pullSixNumbers(List<Integer> numbers) {
+        Integer[] randomNumbers = new Integer[LOTTO_NUMBER];
+        for (int i = 0; i < LOTTO_NUMBER; i++) {
+            randomNumbers[i] = numbers.get(i);
+        }
+        return randomNumbers;
+    }
+
+    private static List<Integer> shuffle() {
+        List<Integer> numbers = new ArrayList<>();
+        for (int i = 1; i <= LottoNumber.LOTTO_MAX_VALUE; i++) {
+            numbers.add(i);
+        }
+        Collections.shuffle(numbers);
+        return numbers;
     }
 
     public List<LottoNumber> getLotto() {
         return lotto;
     }
 
-    public Positive getEqualNumber(Lotto winningLotto) {
+    public int getEqualNumber(Lotto winningLotto) {
         int count = 0;
-        for (int i = 0; i < this.lotto.size(); i++) {
-            count += isContains(winningLotto.getLotto().get(i));
+        for (LottoNumber lottoNumber : lotto) {
+            count += winningLotto.increment(lottoNumber);
         }
-        return new Positive(count);
+        return count;
     }
 
-    private int isContains(LottoNumber lottoNumber) {
+    private int increment(LottoNumber lottoNumber) {
         if (this.lotto.contains(lottoNumber)) {
             return 1;
         }

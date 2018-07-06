@@ -2,7 +2,7 @@ package lotto.view;
 
 import lotto.Lotto;
 import lotto.Rank;
-import lotto.resource.CustomDouble;
+import lotto.resource.EarningRate;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class ResultView {
         }
     }
 
-    public static void printWinningStats(List<Rank> ranks, CustomDouble earningRate) {
+    public static void printWinningStats(List<Rank> ranks, EarningRate earningRate) {
         System.out.println("당첨 통계");
         System.out.println("---------");
         int[] stats = new int[7];
@@ -26,7 +26,7 @@ public class ResultView {
         }
 
 
-        System.out.println("총 수익률은 " + CustomDouble.round(earningRate).getCustomDouble() + "%입니다.");
+        System.out.println("총 수익률은 " + EarningRate.round(earningRate).getEarningRate() + "%입니다.");
 
     }
 }

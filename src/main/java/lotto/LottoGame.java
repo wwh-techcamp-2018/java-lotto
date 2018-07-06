@@ -1,39 +1,38 @@
 package lotto;
 
 import lotto.generator.LottoGenerator;
-import lotto.resource.CustomDouble;
-import lotto.resource.Positive;
+import lotto.resource.EarningRate;
+import lotto.resource.Money;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class LottoGame {
-
-    public static List<Lotto> repeatGenerateLottoNumber(Positive tryNumber, LottoGenerator lottoGenerator) {
+    public static List<Lotto> repeatGenerateLottoNumber(int tryNumber) {
         List<Lotto> lottoList = new ArrayList<>();
-        for (int i = 0; i < tryNumber.getNumber(); i++) {
-            lottoList.add(new Lotto(lottoGenerator.generateNumber()));
+        for (int i = 0; i < tryNumber; i++) {
+            lottoList.add(Lotto.ofAuto());
         }
         return lottoList;
     }
 
-    public static Positive getTryNumber(Positive price) {
-        return new Positive(price.getNumber() / 1000);
+    public static int getTryNumber(Money price) {
+        return price.getMoney() / 1000;
     }
 
     public static List<Rank> confirmWinning(List<Lotto> lottoList, Lotto winningLotto) {
         List<Rank> ranks = new ArrayList<>();
         for (Lotto lotto : lottoList) {
-            ranks.add(Rank.valueOf(lotto.getEqualNumber(winningLotto).getNumber()));
+            ranks.add(Rank.valueOf(lotto.getEqualNumber(winningLotto)));
         }
         return ranks;
     }
 
-    public static CustomDouble getEarningsRate(Positive inputMoney, List<Rank> ranks) {
-        CustomDouble customDouble = new CustomDouble(0);
+    public static EarningRate getEarningsRate(Money inputMoney, List<Rank> ranks) {
+        Money earingMoney = new Money(0);
         for (Rank rank : ranks) {
-            customDouble = customDouble.add(rank.getWinningMoney());
+            earingMoney = earingMoney.add(rank.getWinningMoney());
         }
-        return CustomDouble.getPercentage(customDouble, inputMoney);
+        return EarningRate.getPercentage(earingMoney, inputMoney);
     }
 }

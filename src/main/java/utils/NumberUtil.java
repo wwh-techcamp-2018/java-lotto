@@ -10,13 +10,13 @@ public class NumberUtil {
     }
 
     private static String[] split(String inputString) {
-        return inputString.split(", ");
+        return inputString.split(",");
     }
 
     private static LottoNumber[] getLottoNumbers(String[] splitString) {
         LottoNumber[] numbers = new LottoNumber[splitString.length];
         for (int i = 0; i < splitString.length; i++) {
-            numbers[i] = new LottoNumber(splitString[i]);
+            numbers[i] = LottoNumber.ofString(splitString[i].trim());
         }
         return numbers;
     }
