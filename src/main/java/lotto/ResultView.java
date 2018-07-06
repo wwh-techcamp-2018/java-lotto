@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ResultView {
     private static final int START = 3;
-    private static final int[] PRIZE_MONEY = {0, 0, 0, 5000, 50000, 1500000, 2000000000};
+    private static final int[] PRIZE_MONEY = {0, 0, 0, 5_000, 50_000, 1_500_000, 2_000_000_000};
 
     public static void printLottos(LottoPlay game) {
         List<Lotto> lottos = game.getLottos();
@@ -15,15 +15,13 @@ public class ResultView {
     }
 
     private static void getPrintLotto(Lotto lotto) {
-        Collections.sort(lotto.getNumbers());
-        System.out.println(lotto.getNumbers());
+        System.out.println(lotto.toString());
     }
 
     public static void printResult(LottoResult result) {
         System.out.println("당첨 통계\n----------");
-        int[] matchedlist = result.getResult();
         for (int i = START; i < 7; i++) {
-            System.out.println(i + "개 일치 (" + PRIZE_MONEY[i] + "원)-" + matchedlist[i] + "개");
+            System.out.println(i + "개 일치 (" + PRIZE_MONEY[i] + "원)-" + result.getResult(i) + "개");
         }
     }
 

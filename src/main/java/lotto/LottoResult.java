@@ -1,37 +1,30 @@
 package lotto;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LottoResult {
     private final int MATCHED_COUNT = 7;
-    int[] result = new int[MATCHED_COUNT];
+    private Map<Integer, Integer> result = new HashMap<>();
 
-    public static int matchedCount(Lotto lotto, List<Integer> winningNumbers) {
-        int count = 0;
-        for (int i = 0; i < winningNumbers.size(); i++) {
-            count += isMatched(lotto, winningNumbers.get(i));
+    public LottoResult() {
+        for (int i = 0; i < MATCHED_COUNT; i++) {
+            this.result.put(i, 0);
         }
-        return count;
-    }
-
-    public static int isMatched(Lotto lotto, int number) {
-        if (lotto.getNumbers().contains(number)) {
-            return 1;
-        }
-        return 0;
     }
 
     public int getResult(int i) {
-        return result[i];
+        return result.get(i);
     }
 
-    public int[] getResult() {
-        return result;
-    }
-
-    public void makeResult(List<Lotto> list, List<Integer> integers) {
+    public void makeResult(List<Lotto> list, WinningLotto winningLotto) {
         for (Lotto lotto : list) {
-            result[matchedCount(lotto, integers)]++;
+            result.put(matchedCount(lotto, winningLotto), result.get(matchedCount(lotto, winningLotto)) + 1);
         }
+    }
+
+    public static int matchedCount(Lotto lotto, WinningLotto winningLotto) {
+        return lotto.containCount(winningLotto);
     }
 }

@@ -26,7 +26,7 @@ public class InputView {
     public static List<Integer> toIntegers(String[] numbers) {
         List<Integer> list = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            list.add(Integer.parseInt(numbers[i].trim()));
+            list.add((Integer.parseInt(numbers[i].trim())));
         }
         return list;
     }
