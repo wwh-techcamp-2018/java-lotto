@@ -15,7 +15,7 @@ public class StringUtil {
     private static LottoNo[] toLottoNumbers(String[] values) {
         LottoNo[] lottoNumbers = new LottoNo[values.length];
         for (int i = 0; i < values.length; i++) {
-            lottoNumbers[i] = new LottoNo(values[i]);
+            lottoNumbers[i] = LottoNo.of(values[i]);
         }
         return lottoNumbers;
     }

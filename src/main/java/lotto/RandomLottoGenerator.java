@@ -22,7 +22,7 @@ public class RandomLottoGenerator implements LottoGenerator {
         Collections.shuffle(lottoSheet);
         return new Lotto(lottoSheet.stream()
                 .limit(6).sorted()
-                .map(LottoNo::new)
+                .map(LottoNo::of)
                 .toArray(LottoNo[]::new));
     }
 }

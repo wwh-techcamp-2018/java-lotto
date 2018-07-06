@@ -4,9 +4,9 @@ import java.util.Map;
 
 public class GameResult {
     private double profit;
-    private Map<Prize, Integer> prizeMap;
+    private PrizeMap prizeMap;
 
-    public GameResult(double profit, Map<Prize, Integer> prizeMap) {
+    public GameResult(double profit, PrizeMap prizeMap) {
         this.profit = profit;
         this.prizeMap = prizeMap;
     }
@@ -17,7 +17,7 @@ public class GameResult {
     }
 
     public Map<Prize, Integer> getPrizeMap() {
-        return prizeMap;
+        return prizeMap.get();
     }
 
 }

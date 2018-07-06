@@ -3,21 +3,17 @@ package lotto.domain;
 import lotto.domain.LottoNo;
 
 public class LottoResult {
-    private LottoNo[] resultNumbers;
+    private Lotto lotto;
 
     public LottoResult(LottoNo... resultNumbers) {
         if (resultNumbers.length != 6) {
             throw new IllegalArgumentException();
         }
-        this.resultNumbers = resultNumbers;
+
+        this.lotto = new Lotto(resultNumbers);
     }
 
     public boolean containsNumber(LottoNo number) {
-        for (LottoNo resultNumber : resultNumbers) {
-            if (resultNumber.equals(number)) {
-                return true;
-            }
-        }
-        return false;
+        return lotto.contains(number);
     }
 }

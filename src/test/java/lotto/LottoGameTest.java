@@ -26,6 +26,6 @@ public class LottoGameTest {
 
     @Test
     public void makePrizeMap() {
-        assertThat(game.makePrizeMap(new LottoResult(RESULT_NUMBERS)).get(Prize.FIRST)).isOne();
+        assertThat(game.makePrizeMap(new LottoResult(RESULT_NUMBERS)).get().get(Prize.FIRST)).isOne();
     }
 }

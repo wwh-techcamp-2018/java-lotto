@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 public class Lotto {
     private LottoNo[] lottoNumbers;
@@ -33,5 +34,10 @@ public class Lotto {
 
     public int countIntersection(LottoResult lottoResult) {
         return (int) Arrays.stream(lottoNumbers).filter(lottoResult::containsNumber).count();
+    }
+
+    public boolean contains(LottoNo number) {
+        return Stream.of(lottoNumbers)
+                .anyMatch(lottoNo -> lottoNo.equals(number));
     }
 }

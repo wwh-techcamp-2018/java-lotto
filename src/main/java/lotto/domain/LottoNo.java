@@ -1,20 +1,43 @@
 package lotto.domain;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class LottoNo {
+    public static final int MIN_LOTTO_VALUE = 1;
+    public static final int MAX_LOTTO_VALUE = 45;
+
+    private static Map<Integer, LottoNo> lottoNoMap;
     private int value;
 
-    public LottoNo(int value) {
-        if (value < 1 || value > 45) {
+    static {
+        lottoNoMap = new HashMap<>();
+        for (int i = MIN_LOTTO_VALUE; i <= MAX_LOTTO_VALUE; i++) {
+            lottoNoMap.put(i, new LottoNo(i));
+        }
+    }
+
+    private LottoNo(int value) {
+        if (value < MIN_LOTTO_VALUE || value > MAX_LOTTO_VALUE) {
             throw new IllegalArgumentException();
         }
 
         this.value = value;
     }
 
-    public LottoNo(String value) {
-        this(Integer.parseInt(value.trim()));
+    public static LottoNo of(int value) {
+        LottoNo lottoNo = lottoNoMap.get(value);
+
+        if (lottoNo == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return lottoNo;
+    }
+
+    public static LottoNo of(String value) {
+        return of(Integer.parseInt(value.trim()));
     }
 
     @Override

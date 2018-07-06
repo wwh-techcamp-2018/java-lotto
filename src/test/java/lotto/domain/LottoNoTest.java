@@ -7,7 +7,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LottoNoTest {
     @Test(expected = IllegalArgumentException.class)
-    public void invalidLottoNo() {
-        new LottoNo(46);
+    public void invalidLottoNoIsMoreThan45() {
+        LottoNo.of(46);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void invalidLottoNoIsLessThan1() {
+        LottoNo.of(0);
     }
 }

@@ -10,7 +10,7 @@ public class StringUtilTest {
     @Test
     public void parseString() {
         LottoResult lottoResult = StringUtil.parseToLottoResult("1, 2, 3, 4, 5 ,6");
-        assertThat(lottoResult.containsNumber(new LottoNo(1)))
+        assertThat(lottoResult.containsNumber(LottoNo.of(1)))
                 .isTrue();
     }
 }
