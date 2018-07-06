@@ -1,13 +1,20 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+package lotto;
+
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Lotto {
-
     private final int NUMBERS_LENGTH = 6;
     private List<LottoNumber> numbers;
+
+    public static Lotto of(Integer... numbers) {
+        if (numbers.length == 0)
+            return new Lotto();
+
+        return new Lotto(Arrays.stream(numbers)
+                .map(LottoNumber::new)
+                .collect(Collectors.toList()));
+    }
 
     public Lotto() {
         initializeNumbers();
@@ -35,7 +42,8 @@ public class Lotto {
         return numbers.size() == NUMBERS_LENGTH;
     }
 
-    public String getLottoString() {
+    @Override
+    public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
         for (int i = 0; i < NUMBERS_LENGTH; i++) {
@@ -48,14 +56,14 @@ public class Lotto {
     public void initializeNumbers() {
         numbers = new ArrayList<>();
         List<LottoNumber> pot = makeInitialPot();
-        Random random = new Random();
 
+        Collections.shuffle(pot);
         for (int i = 0; i < NUMBERS_LENGTH; i++) {
-            int randomIndex = random.nextInt(pot.size());
-            numbers.add(pot.get(randomIndex));
-            pot.remove(randomIndex);
+            numbers.add(pot.get(i));
         }
-//        Collections.sort(numbers);
+
+        Collections.sort(numbers);
+
     }
 
     public List<LottoNumber> makeInitialPot() {

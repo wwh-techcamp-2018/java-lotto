@@ -1,3 +1,9 @@
+package lotto;
+
+import lotto.Lotto;
+import lotto.LottoGame;
+import lotto.LottoGameDisplay;
+import lotto.LottoNumber;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,10 +17,11 @@ public class LottoGameTest {
     private LottoGame lottoGame;
     private Lotto sampleLotto;
     private List<Lotto> lottos;
+    private LottoGameDisplay lottoGameDisplay;
 
     @Before
     public void setUp() throws Exception {
-        lottoGame = new LottoGame();
+        lottoGame = new LottoGame(2000);
         sampleLotto = new Lotto(Arrays.asList(
                 new LottoNumber(3),
                 new LottoNumber(4),
@@ -57,15 +64,13 @@ public class LottoGameTest {
         // input: lotto output: prizeSum
 
         lottoGame.setLottoHolder(lottos);
-        lottoGame.setWinnerLotto(sampleLotto);
-        assertEquals(10000, lottoGame.getPrizeSum());
+        assertEquals(10000, lottoGame.getPrizeSum(sampleLotto));
     }
 
     @Test
     public void getProfitRate() {
         lottoGame.setCost(14000);
-        lottoGame.setWinnerLotto(sampleLotto);
         lottoGame.setLottoHolder(lottos);
-        assertEquals(35, lottoGame.getProfitRate());
+        assertEquals(71, lottoGame.getProfitRate(sampleLotto));
     }
 }

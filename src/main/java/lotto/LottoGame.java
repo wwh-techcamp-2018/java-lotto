@@ -1,13 +1,19 @@
+package lotto;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class LottoGame {
 
-    private LottoGameDisplay lottoGameDisplay;
     private List<Lotto> lottoHolder;
     private int cost;
     private Lotto winnerLotto;
+
+    public LottoGame(int cost) {
+        this.cost = cost;
+        this.lottoHolder = generateLottoHolder();
+    }
 
     public void setCost(int cost) {
         this.cost = cost;
@@ -25,10 +31,6 @@ public class LottoGame {
         this.winnerLotto = lotto;
     }
 
-    public void generateGame() {
-        lottoGameDisplay = new LottoGameDisplay(this);
-    }
-
     public List<Lotto> generateLottoHolder() {
         List<Lotto> holder = new ArrayList<>();
         for (int i = 0; i < cost / 1000; i++) {
@@ -37,27 +39,24 @@ public class LottoGame {
         return holder;
     }
 
-    public int getPrizeSum() {
+    public int getPrizeSum(Lotto winnerLotto) {
         int prizeSum = 0;
         for (Lotto lotto : lottoHolder) {
-            prizeSum += Rank.getMatchingPrize(lotto.matchCount(winnerLotto));
+            prizeSum += Rank.getRank(lotto.matchCount(winnerLotto)).getPrize();
         }
         return prizeSum;
     }
 
-    public int getProfitRate() {
-        return (getPrizeSum() * 100 / cost);
+    public int getProfitRate(Lotto winnerLotto) {
+        return (getPrizeSum(winnerLotto) * 100 / cost);
     }
 
-    public int getMatchCountNumber(int matchCount) {
+    public int getMatchCountNumber(int matchCount, Lotto winnerLotto) {
         List<Lotto> matchCountEqualList = this.lottoHolder.stream()
-                .filter(lotto -> this.winnerLotto.matchCount(lotto) == matchCount)
+                .filter(lotto -> winnerLotto.matchCount(lotto) == matchCount)
                 .collect(Collectors.toList());
 
         return matchCountEqualList.size();
     }
 
-    public void run() {
-        generateGame();
-    }
 }

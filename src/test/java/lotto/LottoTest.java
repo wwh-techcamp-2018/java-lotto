@@ -1,3 +1,7 @@
+package lotto;
+
+import lotto.Lotto;
+import lotto.LottoNumber;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -25,7 +29,7 @@ public class LottoTest {
 
     @Test
     public void getLottoString() {
-        assertEquals("[1, 3, 10, 20, 30, 40]", lotto.getLottoString());
+        assertEquals("[1, 3, 10, 20, 30, 40]", lotto.toString());
     }
 
     @Test

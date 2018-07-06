@@ -1,3 +1,6 @@
+package lotto;
+
+import lotto.LottoNumber;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
