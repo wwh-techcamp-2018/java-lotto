@@ -5,16 +5,14 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
+// TODO 질문
 public class Lotto {
     private static final String DEFAULT_DELIMITER = ",";
-    private static final Integer LOTTO_MIN_NUMBER = 1;
-    private static final Integer LOTTO_MAX_NUMBER = 45;
-
     private List<LottoNumber> numbers;
 
     public Lotto() {
         numbers = new ArrayList<>();
-        this.numbers = getSixNumbers(shuffle(pushFortyFive()));
+        numbers = getSixNumbers(shuffle(pushFortyFive()));
     }
 
     public Lotto(String inputNumbers) {
@@ -25,10 +23,17 @@ public class Lotto {
         }
     }
 
+    public static Lotto ofBlank() {
+        return new Lotto();
+    }
+
+    public static Lotto ofString(String numbers) {
+        return new Lotto(numbers);
+    }
+
     private List<LottoNumber> getSixNumbers(List<LottoNumber> numbers) {
         return numbers.subList(0, 6);
     }
-
 
     private List<LottoNumber> shuffle(List<LottoNumber> numbers) {
         Collections.shuffle(numbers);
@@ -37,26 +42,25 @@ public class Lotto {
 
     private List<LottoNumber> pushFortyFive() {
         List<LottoNumber> numbers = new ArrayList<>();
-        for (int i = LOTTO_MIN_NUMBER; i <= LOTTO_MAX_NUMBER; i++) {
+        for (int i = 1; i <= 45; i++) {
             numbers.add(new LottoNumber(i));
         }
         return numbers;
     }
 
     // 로또 메소드
-    public int matchCountBy(Lotto winnerLotto) {
+    public int getMatchCount(Lotto winningLotto) {
         int count = 0;
         for (LottoNumber number : numbers) {
-            count += winnerLotto.increment(number);
+            count += winningLotto.increment(number);
         }
         return count;
     }
 
     // 당첨로또 메소드
     private int increment(LottoNumber number) {
-        return this.numbers.contains(number) ? 1 : 0;
+        return numbers.contains(number) ? 1 : 0;
     }
-
 
     private String[] getSplit(String inputNumbers) {
         return inputNumbers.split(DEFAULT_DELIMITER);

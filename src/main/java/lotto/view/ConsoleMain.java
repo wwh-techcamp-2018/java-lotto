@@ -16,6 +16,6 @@ public class ConsoleMain {
         ConsoleOutputView.printLottoesInfo(lottos);
 
         List<LottoResult> results = LottoGame.getResult(lottos, lottoGame.createWinningLotto(ConsoleInputView.getWinNumbers()));
-        ConsoleOutputView.printResult(results, lottoGame.calculateYield(results, price));
+        ConsoleOutputView.printResult(results, LottoGame.calculateYield(results, price));
     }
 }

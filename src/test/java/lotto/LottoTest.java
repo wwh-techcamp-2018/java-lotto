@@ -11,17 +11,17 @@ public class LottoTest {
 
     @Before
     public void setUp() throws Exception {
-        lotto = LottoFactory().createLotto();
+        lotto = Lotto.ofBlank();
     }
 
     @Test
     public void create_로또_생성() {
-        assertThat(new Lotto().getNumbers().size()).isEqualTo(6);
+        assertThat(Lotto.ofBlank().getNumbers().size()).isEqualTo(6);
     }
 
     @Test
     public void create_당첨로또_생성() {
-        assertThat(new Lotto("1,2,3,4,5,6").getNumbers())
+        assertThat(Lotto.ofString("1,2,3,4,5,6").getNumbers())
                 .contains(new LottoNumber(1))
                 .contains(new LottoNumber(2))
                 .contains(new LottoNumber(3))
@@ -32,9 +32,9 @@ public class LottoTest {
 
     @Test
     public void get_일치_개수() {
-        Lotto lotto = new Lotto("1,2,3,4,5,7");
-        Lotto winnerLotto = new Lotto("1,2,3,4,5,6");
+        Lotto lotto = Lotto.ofString("1,2,3,4,5,7");
+        Lotto winnerLotto = Lotto.ofString("1,2,3,4,5,6");
 
-        assertThat(lotto.matchCountBy(winnerLotto)).isEqualTo(5);
+        assertThat(lotto.getMatchCount(winnerLotto)).isEqualTo(5);
     }
 }

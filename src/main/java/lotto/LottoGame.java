@@ -13,7 +13,7 @@ public class LottoGame {
     }
 
     public Lotto createWinningLotto(String numbers) {
-        winningLotto = new Lotto(numbers);
+        winningLotto = Lotto.ofString(numbers);
         return winningLotto;
     }
 
@@ -36,11 +36,11 @@ public class LottoGame {
         return lottoResults;
     }
 
-    public int calculateYield(List<LottoResult> results, int price) {
+    public static int calculateYield(List<LottoResult> results, int price) {
         int sum = 0;
         for (LottoResult result : results) {
             sum += result.calculateYield();
         }
-        return sum / price;
+        return sum / price * 100;
     }
 }

@@ -17,8 +17,12 @@ public class LottoFactory {
     private static List<Lotto> createLottos(int count) {
         List<Lotto> lottos = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            lottos.add(new Lotto());
+            lottos.add(createAutoLotto());
         }
         return lottos;
+    }
+
+    private static Lotto createAutoLotto() {
+        return Lotto.ofBlank();
     }
 }

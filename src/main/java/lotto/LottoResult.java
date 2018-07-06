@@ -22,7 +22,7 @@ public class LottoResult {
 
     public void increment(List<Lotto> lottos, Lotto winningLotto) {
         for (Lotto lotto : lottos) {
-            if (isMatched(lotto.matchCountBy(winningLotto)))
+            if (isMatched(lotto.getMatchCount(winningLotto)))
                 addCount();
         }
     }

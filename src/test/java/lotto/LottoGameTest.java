@@ -31,8 +31,8 @@ public class LottoGameTest {
         LottoResult lotto5thResult = new LottoResult(Match.FIFTH ,0);
         LottoResult lotto6thResult = new LottoResult(Match.SIXTH, 1);
 
-        List<Lotto> lottos = Arrays.asList(new Lotto("1,2,3,4,5,6"));
-        Lotto winningLotto = new Lotto("1,2,3,4,5,6");
+        List<Lotto> lottos = Arrays.asList(Lotto.ofString("1,2,3,4,5,6"));
+        Lotto winningLotto = Lotto.ofString("1,2,3,4,5,6");
 
         assertThat(lottoGame.getResult(lottos, winningLotto))
                 .contains(lotto3rdResult)
@@ -43,7 +43,6 @@ public class LottoGameTest {
 
     @Test
     public void calculate_수익률() {
-        List<LottoResult> results = Arrays.asList(new LottoResult(Match.THIRD, 1));
-        assertThat(lottoGame.calculateYield(results, 1000)).isEqualTo(5);
+        assertThat(LottoGame.calculateYield(Arrays.asList(new LottoResult(Match.THIRD, 1)), 1000)).isEqualTo(500);
     }
 }
