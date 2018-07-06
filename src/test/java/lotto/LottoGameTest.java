@@ -39,7 +39,7 @@ public class LottoGameTest {
 
     @Test
     public void matchTickets() {
-        List<Integer> winningNumber = Arrays.asList(1,2,3,4,40,41);
+        List<Integer> winningNumber = Arrays.asList(1, 2, 3, 4, 40, 41);
         int budget = 3000;
 
         List<List<Integer>> testNumbers = new ArrayList<>();
@@ -54,12 +54,13 @@ public class LottoGameTest {
         ValueGenerator vg = new ExplicitValueGenerator(testNumbers);
         game.buyTicket(budget, vg);
 
-        assertThat(game.matchTickets(winningNumber)).isEqualTo(new LottoResult(new int[] {1, 1, 1, 0}));
+        assertThat(game.matchTickets(new WinningTicket(LottoNumber.listOf(winningNumber))).getResult())
+                .contains(entry(3, 1), entry(4, 1), entry(5, 1), entry(6, 0));
     }
 
     @Test
     public void calculateRevenue() {
-        LottoResult lottoResult = new LottoResult(new int[] {1, 0, 0, 0});
+        LottoResult lottoResult = new LottoResult(new int[]{1, 0, 0, 0});
 
         assertThat(LottoGame.calculateRevenue(14000, lottoResult)).isEqualTo((float) 5000 / 14000 * 100);
     }

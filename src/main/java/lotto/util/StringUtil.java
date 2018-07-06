@@ -3,8 +3,8 @@ package lotto.util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class stringUtil {
-    public static List<Integer> toIntList(String input){
+public class StringUtil {
+    public static List<Integer> toIntList(String input) {
         String[] tokens = input.split(", ");
         List<Integer> result = new ArrayList<>();
         for (String token : tokens) {
@@ -16,11 +16,10 @@ public class stringUtil {
     public static String writeList(List<Integer> numbers) {
         StringBuilder sb = new StringBuilder();
         sb.append("[");
-        for (int i = 0; i < numbers.size()-1; i++) {
+        for (int i = 0; i < numbers.size() - 1; i++) {
             sb.append(numbers.get(i) + ", ");
         }
-        sb.append(numbers.get(numbers.size()-1) + "]");
-
+        sb.append(numbers.get(numbers.size() - 1) + "]");
         return sb.toString();
     }
 }

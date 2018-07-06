@@ -1,29 +1,30 @@
 package lotto;
 
-import lotto.util.stringUtil;
+import lotto.util.StringUtil;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
 public class Ticket {
-    List<Integer> numbers;
+    private List<LottoNumber> numbers;
 
-    public Ticket(List<Integer> numbers) {
+
+    public Ticket(List<LottoNumber> numbers) {
         this.numbers = numbers;
-        Collections.sort(this.numbers);
     }
 
-    public int match(Ticket winningTicket) {
-        int cnt = 0;
+    public int match(WinningTicket winningTicket) {
+        int count = 0;
         for (int i = 0; i < this.numbers.size(); i++) {
-            cnt = cnt + winningTicket.contains(this.numbers.get(i));
+            count = count + winningTicket.contains(this.numbers.get(i));
         }
-        return cnt;
+
+        return count;
     }
 
-    private int contains(Integer integer) {
-        if (this.numbers.contains(integer))
+    public int contains(LottoNumber lottonum) {
+        if (this.numbers.contains(lottonum))
             return 1;
         return 0;
     }
@@ -43,6 +44,6 @@ public class Ticket {
     }
 
     public String toString() {
-        return stringUtil.writeList(numbers);
+        return StringUtil.writeList(LottoNumber.toIntList(numbers));
     }
 }

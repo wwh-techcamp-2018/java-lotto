@@ -1,12 +1,15 @@
 package lotto;
 
-import lotto.util.mathUtil;
+import lotto.util.MathUtil;
 
+import java.util.Collections;
 import java.util.List;
 
 public class RandomValueGenerator implements ValueGenerator {
     @Override
     public List<Integer> nextValue() {
-        return mathUtil.getRandomNumbers(6);
+        List<Integer> resultNums = MathUtil.getRandomNumbers(6);
+        Collections.sort(resultNums);
+        return resultNums;
     }
 }

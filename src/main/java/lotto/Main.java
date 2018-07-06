@@ -1,6 +1,6 @@
 package lotto;
 
-import lotto.util.stringUtil;
+import lotto.util.StringUtil;
 
 public class Main {
 
@@ -8,7 +8,8 @@ public class Main {
         LottoGame game = new LottoGame();
         int money = InputView.askBudget();
         ResultView.printTickets(game.buyTicket(money, new RandomValueGenerator()));
-        LottoResult result = game.matchTickets(stringUtil.toIntList(InputView.askWinningNums()));
+        WinningTicket winningTicket = new WinningTicket(LottoNumber.listOf(StringUtil.toIntList(InputView.askWinningNums())));
+        LottoResult result = game.matchTickets(winningTicket);
         ResultView.printStatistics(result);
         ResultView.printRevenue(game.calculateRevenue(money, result));
     }
