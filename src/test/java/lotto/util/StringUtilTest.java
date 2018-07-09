@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class StringUtilTest {
     @Test
     public void parseString() {
-        LottoResult lottoResult = StringUtil.parseToLottoResult("1, 2, 3, 4, 5 ,6");
+        LottoResult lottoResult = StringUtil.parseToLottoResult("1, 2, 3, 4, 5 ,6", 7);
         assertThat(lottoResult.containsNumber(LottoNo.of(1)))
                 .isTrue();
     }

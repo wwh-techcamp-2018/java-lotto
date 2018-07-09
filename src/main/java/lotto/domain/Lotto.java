@@ -1,6 +1,10 @@
 package lotto.domain;
 
+import lotto.util.StringUtil;
+
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Lotto {
@@ -12,6 +16,10 @@ public class Lotto {
         }
 
         this.lottoNumbers = lottoNumbers;
+    }
+
+    public static List<Lotto> of(String... lottoNumberStrings) {
+        return Stream.of(lottoNumberStrings).map(StringUtil::parseToLotto).collect(Collectors.toList());
     }
 
     @Override
@@ -39,5 +47,9 @@ public class Lotto {
     public boolean contains(LottoNo number) {
         return Stream.of(lottoNumbers)
                 .anyMatch(lottoNo -> lottoNo.equals(number));
+    }
+
+    public boolean hasBonusBall(LottoResult lottoResult) {
+        return lottoResult.containsBonusNumber(lottoNumbers);
     }
 }

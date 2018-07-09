@@ -4,16 +4,20 @@ import lotto.domain.LottoNo;
 
 public class LottoResult {
     private Lotto lotto;
+    private LottoNo bonus;
 
-    public LottoResult(LottoNo... resultNumbers) {
-        if (resultNumbers.length != 6) {
-            throw new IllegalArgumentException();
-        }
-
-        this.lotto = new Lotto(resultNumbers);
+    public LottoResult(Lotto lotto, LottoNo bonus) {
+        this.lotto = lotto;
+        this.bonus = bonus;
     }
 
     public boolean containsNumber(LottoNo number) {
         return lotto.contains(number);
+    }
+
+
+    // TODO
+    public boolean containsBonusNumber(LottoNo[] lottoNumbers) {
+        return false;
     }
 }
