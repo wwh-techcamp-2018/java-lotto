@@ -2,6 +2,7 @@ package lotto;
 
 import lotto.values.Lotto;
 import lotto.values.LottoStatistics;
+import lotto.values.WinningLotto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +18,7 @@ public class LottoGame {
         return lottoList;
     }
 
-    public static LottoStatistics calculateStatistics(List<Lotto> lottoList, Lotto winLotto) {
-        return new LottoStatistics(lottoList, winLotto);
+    public static LottoStatistics calculateStatistics(List<Lotto> lottoList, WinningLotto winningLotto) {
+        return new LottoStatistics(lottoList, winningLotto);
     }
 }

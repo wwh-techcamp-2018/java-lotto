@@ -2,14 +2,13 @@ package lotto.values;
 
 import lotto.LottoGame;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class LottoStatistics {
     private final Map<Rank, Integer> statistics = new HashMap<>();
 
-    public LottoStatistics(List<Lotto> lottoList, Lotto winLotto) {
+    public LottoStatistics(List<Lotto> lottoList, WinningLotto winLotto) {
         for (Rank rank : Rank.values()) {
             statistics.put(rank, 0);
         }
@@ -52,14 +51,19 @@ public class LottoStatistics {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        Rank rank;
-        for (int matches = Rank.FOURTH.getMatches(); matches <= Rank.FIRST.getMatches() ; matches++) {
-            rank = Rank.valueOf(matches);
-            builder.append(String.format("%d개 일치(%d원)- %d개\n",
-                    rank.getMatches(),
-                    rank.getPrice(),
-                    this.getCount(rank)));
+
+        for (Rank rank : getVisibleRankList()) {
+            builder.append(rank.toString()).append(String.format("- %d개\n", this.getCount(rank)));
         }
         return builder.toString();
+    }
+
+    private static List<Rank> getVisibleRankList() {
+        List<Rank> visibleRank = Arrays.stream(Rank.values())
+                .sorted(Collections.reverseOrder())
+                .collect(Collectors.toList());
+
+        visibleRank.remove(Rank.MISS);
+        return visibleRank;
     }
 }
