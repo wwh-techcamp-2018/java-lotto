@@ -25,4 +25,13 @@ public class RandomLottoGenerator implements LottoGenerator {
                 .map(LottoNo::of)
                 .toArray(LottoNo[]::new));
     }
+
+    @Override
+    public List<Lotto> generate(int n) {
+        List<Lotto> lottos = new ArrayList<>(n);
+        for (int i = 0; i < n; i++) {
+            lottos.add(generate());
+        }
+        return lottos;
+    }
 }
