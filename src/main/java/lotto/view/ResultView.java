@@ -20,15 +20,15 @@ public class ResultView {
         prizeMap.remove(Prize.GGWANG);
 
         prizeMap.entrySet().stream()
-                .sorted(Comparator.comparingInt(entry -> entry.getKey().getMatchCount()))
+                .sorted(Comparator.comparingInt(entry -> (int) entry.getKey().getReward()))
                 .forEach(entity -> {
                     Prize prize = entity.getKey();
-                    System.out.printf("%d개\t일치\t(%d원)-\t%d개\n", prize.getMatchCount(), prize.getReward(), prizeMap.get(prize));
+                    System.out.printf("%s-\t%d개\n", prize.expressionString(), prizeMap.get(prize));
                 });
     }
 
-    public static void printLottos(List<Lotto> lottos) {
-        System.out.println(lottos.size() + "개를 구매했습니다.");
+    public static void printLottos(List<Lotto> lottos, int manualNumber) {
+        System.out.println("수동으로 " + manualNumber + "장, 자동으로 " + (lottos.size() - manualNumber) + "개를 구매했습니다.");
         lottos.forEach(System.out::println);
     }
 }

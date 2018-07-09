@@ -15,6 +15,7 @@ public class PrizeMap {
             put(Prize.SECOND, 0);
             put(Prize.THIRD, 0);
             put(Prize.FOURTH, 0);
+            put(Prize.FIFTH, 0);
             put(Prize.GGWANG, 0);
         }};
     }
