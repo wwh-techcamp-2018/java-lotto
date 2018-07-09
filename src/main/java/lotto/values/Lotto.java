@@ -7,15 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class Lotto {
-    private  Set<LottoNumber> lottoNumbers;
-
-    public Lotto(String string) {
-        this(StringParser.parse(string));
-    }
-
-    public Lotto(List<Integer> numbers) {
-        this(new HashSet<>(numbers));
-    }
+    private final Set<LottoNumber> lottoNumbers;
 
     public Lotto(Set<Integer> numbers) {
         if (numbers.size() != 6) {
@@ -27,29 +19,57 @@ public class Lotto {
                 .collect(Collectors.toSet());
     }
 
+    public Lotto(String string) {
+        this(StringParser.parse(string));
+    }
+
+    public Lotto(List<Integer> numbers) {
+        this(new HashSet<>(numbers));
+    }
+
     public Lotto() {
         this(LottoNumberGenerator.generateNumbers());
     }
 
+    public static List<Lotto> ofStringList(List<String> stringList) {
+        return stringList.stream()
+                .map(StringParser::parse)
+                .map(Lotto::new)
+                .collect(Collectors.toList());
+    }
 
-    public Rank match(Lotto lotto) {
-        return Rank.valueOf((int) this.lottoNumbers.stream()
+    public int match(Lotto lotto) {
+        return (int) this.lottoNumbers.stream()
                 .filter(lotto.lottoNumbers::contains)
-                .count());
+                .count();
     }
 
     public String toString() {
-        List<Integer> lottoNumbersList = lottoNumbers.stream().map(LottoNumber::toInt).collect(Collectors.toList());
-        Collections.sort(lottoNumbersList);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("[");
-        for (Integer lottoNumber : lottoNumbersList) {
-            stringBuilder.append(lottoNumber.toString())
-            .append(", ");
-        }
-        stringBuilder.delete(stringBuilder.length() - 2, stringBuilder.length());
-        stringBuilder.append("]");
+        return lottoNumbersToSortedList(this.lottoNumbers).toString();
+    }
 
-        return stringBuilder.toString();
+    private static List<Integer> lottoNumbersToSortedList(Set<LottoNumber> lottoNumbers) {
+        return lottoNumbers.stream()
+                .map(LottoNumber::toInt)
+                .sorted()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lotto lotto = (Lotto) o;
+        return Objects.equals(lottoNumbers, lotto.lottoNumbers);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(lottoNumbers);
+    }
+
+
+    public boolean hasNumber(int bonusNumber) {
+        return lottoNumbers.contains(new LottoNumber(bonusNumber));
     }
 }

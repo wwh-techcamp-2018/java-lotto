@@ -1,7 +1,6 @@
 package lotto.view;
 
 import lotto.values.LottoStatistics;
-import lotto.values.Rank;
 
 public class ResultView {
     public static void showStatistics(LottoStatistics statistics){
