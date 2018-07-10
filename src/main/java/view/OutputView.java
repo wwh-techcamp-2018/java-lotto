@@ -3,7 +3,6 @@ package view;
 import dto.BoughtLottoListDto;
 import dto.LottoDto;
 import dto.ResultDto;
-import lottery.EarningRate;
 import lottery.LottoNumber;
 import lottery.Rank;
 
@@ -32,8 +31,8 @@ public class OutputView {
         for (Map.Entry<Rank, Integer> entry : result.entrySet()) {
             System.out.println(entry.getKey().getNumMatched() + "개 일치 (" + entry.getKey().getPrize() + "원) - " + entry.getValue() + "개");
         }
-        EarningRate earningRate = resultDto.getEarningRate();
-        System.out.format("총 수익률은 %.1f%% 입니다.", earningRate.toFloat());
+        Float earningRate = resultDto.getEarningRate();
+        System.out.format("총 수익률은 %.1f%% 입니다.", earningRate);
     }
 
 

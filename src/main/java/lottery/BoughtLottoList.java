@@ -49,12 +49,12 @@ public class BoughtLottoList {
         }
     }
 
-    private EarningRate calculateEarningRate(Map<Rank, Integer> resultMap, Balance balance) {
+    private Float calculateEarningRate(Map<Rank, Integer> resultMap, Balance balance) {
         float prize = 0;
         for (Map.Entry<Rank, Integer> entry : resultMap.entrySet()) {
             prize += entry.getKey().getPrize() * entry.getValue();
         }
-        return new EarningRate(prize / balance.toFloat() * 100);
+        return prize / balance.toFloat() * 100;
     }
 
 }
